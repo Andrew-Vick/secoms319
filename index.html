@@ -1,6 +1,11 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
   <head><script src="../assets/js/color-modes.js"></script>
+    <script>
+      function showImageInModal(imgSrc) {
+        document.getElementById('modalImage').src = imgSrc;
+      }
+    </script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -118,7 +123,7 @@
 
     
     <header class="Title-Intro">
-      <div>
+      <div class="container">
         <h1>Apartment Treasures</h1>
         <br>
         <p>We provide a premium collection of items from our college apartments. Our current offerings feature kitchenware for the finest college chef and stylish furniture sure to add character to any room.</p>
@@ -126,6 +131,19 @@
     </header>
     
 <main>
+  <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img id="modalImage" src="" alt="Product Image" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </div>
     
       <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -171,13 +189,31 @@
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <img src="images/Airfryer.jpeg" alt="airfryer">
             <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">$100 Airfryer</p>
+              <br>
+              <p class="card-body">An airfryer is the perfect addition to anyone's kitchen. Tired of having soggy chicken nuggets or waiting days for the oven to preheat? An airfryer solves all of those problems by cooking fast and cooking those chicken nuggetss to perfection with a nice crunch.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                  data-bs-target="#imageModal" onclick="showImageInModal('images/Airfryer.jpeg')">View</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="images/toaster.jpeg" alt="toaster">
+            <div class="card-body">
+              <p class="card-text">$20 Toaster</p>
+              <br>
+              <p class="card-body">This toaster is sure to make your morning brighter by perfectly toasting your bread, bagels and even frozen items to a perfect golden brown. With this toaster in your kitchen arsenal you'll longer have to settle for a bacon and egg sandwhich on cold normal bread.</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                  data-bs-target="#imageModal" onclick="showImageInModal('images/toaster.jpeg')">View</button>
                 </div>
                 <small class="text-body-secondary">9 mins</small>
               </div>
@@ -186,45 +222,30 @@
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <img src="images/cereal.jpeg" alt="Cereal Dispenser">
             <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">$15 Cereal Dispenser</p>
+              <br>
+              <p class="card-body">Do you hate the jet enginer level of noise a cereal bag or box makes in the morning? If so this dispenser was made for you. Allowing you to peacefully pour your bowl of cereal in the morning without putting your hearing at risk. (Cereal not included)</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                  data-bs-target="#imageModal" onclick="showImageInModal('images/cereal.jpeg')">View</button>
                 </div>
-                <small class="text-body-secondary">9 mins</small>
               </div>
             </div>
           </div>
         </div>
         <div class="col">
           <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <img src="images/IceMaker.jpeg" alt="Ice Maker">
             <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <p class="card-text">This is for all you college students out there. Aren't you tired of spilling gallons of water on the floor trying to put an ice tray in the freezer? With this ice maker you'll never have to worry about flooding your apartment again.</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal"
+                  data-bs-target="#imageModal" onclick="showImageInModal('images/IceMaker.jpeg')">View</button>
                 </div>
-                <small class="text-body-secondary">9 mins</small>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card shadow-sm">
-            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"/><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-            <div class="card-body">
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                </div>
-                <small class="text-body-secondary">9 mins</small>
               </div>
             </div>
           </div>
@@ -235,14 +256,12 @@
 
 </main>
 
-<footer class="text-body-secondary py-5">
-  <div class="container">
-    <p class="float-end mb-1">
+<footer>
+  <div>
+    <div class="container-footer">
+      <p>&copy; 2023 Apartment Treasures. All rights reserved.</p>
       <a href="#">Back to top</a>
-    </p>
-    <p class="mb-1">Album example is &copy; Bootstrap, but please download and customize it for yourself!</p>
-    <p class="mb-0">New to Bootstrap? <a href="/">Visit the homepage</a> or read our <a href="../getting-started/introduction/">getting started guide</a>.</p>
-  </div>
+    </div>
 </footer>
 <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
