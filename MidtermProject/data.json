@@ -1,39 +1,132 @@
 [
     {
         "id": 1,
-        "name": "GPU Model X",
+        "category": "GPU",
+        "name": "GPU Model 1",
         "keywords": ["gpu", "graphics", "video"],
         "image": "./images/the-gpu-1316015_1280.png",
-        "description": "A powerful GPU.",
-        "category": "GPU"
+        "description": "A powerful GPU."
     },
     {
         "id": 2,
-        "name": "RAM 16GB",
-        "keywords": ["ram", "memory", "16gb"],
+        "category": "GPU",
+        "name": "GPU Model 2",
+        "keywords": ["gpu", "graphics", "video"],
         "image": "path_to_image",
-        "description": "High-speed 16GB RAM."
+        "description": "A budget GPU."
     },
     {
         "id": 3,
-        "name": "CPU Model X",
-        "keywords": ["cpu", "intel", "8gb"],
+        "category": "GPU",
+        "name": "GPU Model 3",
+        "keywords": ["gpu", "graphics", "video"],
         "image": "path_to_image",
-        "description": "A powerful CPU."
+        "description": "A budget GPU."
     },
     {
         "id": 4,
-        "name": "GPU Model X",
+        "category": "GPU",
+        "name": "GPU Model 4",
         "keywords": ["gpu", "graphics", "video"],
         "image": "path_to_image",
         "description": "A budget GPU."
     },
     {
         "id": 5,
-        "name": "RAM 16GB",
+        "category": "RAM",
+        "name": "RAM 16GB DDR5",
+        "keywords": ["ram", "memory", "16gb"],
+        "image": "path_to_image",
+        "description": "High-speed 16GB RAM."
+    },
+    
+    {
+        "id": 6,
+        "category": "RAM",
+        "name": "RAM 16GB DDR4",
         "keywords": ["ram", "memory", "16gb","cheap"],
         "image": "path_to_image",
         "description": "slower 16GB RAM."
+    },
+    {
+        "id": 7,
+        "category": "RAM",
+        "name": "RAM 32GB DDR4",
+        "keywords": ["ram", "memory", "16gb","cheap"],
+        "image": "path_to_image",
+        "description": "slower 16GB RAM."
+    },
+    {
+        "id": 8,
+        "category": "RAM",
+        "name": "RAM 16GB DDR3",
+        "keywords": ["ram", "memory", "16gb","cheap"],
+        "image": "path_to_image",
+        "description": "slower 16GB RAM."
+    },
+    {
+        "id": 9,
+        "category": "CPU",
+        "name": "CPU Model 1",
+        "keywords": ["cpu", "intel", "8 cores"],
+        "image": "path_to_image",
+        "description": "A powerful CPU."
+    },
+    {
+        "id": 10,
+        "category": "CPU",
+        "name": "CPU Model 2",
+        "keywords": ["cpu", "intel", "8 cores"],
+        "image": "path_to_image",
+        "description": "A budget CPU."
+    },
+    {
+        "id": 11,
+        "category": "CPU",
+        "name": "CPU Model 3",
+        "keywords": ["cpu", "AMD", "8 cores"],
+        "image": "path_to_image",
+        "description": "A budget CPU."
+    },
+    {
+        "id": 12,
+        "category": "CPU",
+        "name": "CPU Model 4",
+        "keywords": ["cpu", "AMD", "12 cores"],
+        "image": "path_to_image",
+        "description": "A budget CPU."
+    },
+    {
+        "id": 13,
+        "category": "Accessories",
+        "name": "Logitech Keyboard",
+        "keywords": ["Keyboard", "Logitech", "rgb"],
+        "image": "path_to_image",
+        "description": "High quality keyboard"
+    },
+    {
+        "id": 14,
+        "category": "Accessories",
+        "name": "Logitech Mouse",
+        "keywords": ["Mouse", "Logitech", "rgb"],
+        "image": "path_to_image",
+        "description": "High quality keyboard"
+    },
+    {
+        "id": 15,
+        "category": "Accessories",
+        "name": "Logitech Keyboard",
+        "keywords": ["Keyboard", "Logitech", "rgb"],
+        "image": "path_to_image",
+        "description": "High quality keyboard"
+    },
+    {
+        "id": 16,
+        "category": "Accessories",
+        "name": "Logitech Keyboard",
+        "keywords": ["Keyboard", "Logitech", "rgb"],
+        "image": "path_to_image",
+        "description": "High quality keyboard"
     }
 
     
