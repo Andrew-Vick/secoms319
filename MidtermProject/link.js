@@ -15,7 +15,7 @@ function showProductPopup(productId) {
                     <p>${product.description}</p>
                 `;
                 
-                $('#productModal').modal('show'); // Assumes you are using Bootstrap
+                $('#productModal').modal('show');
             }
         });
 }
