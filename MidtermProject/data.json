@@ -3,6 +3,7 @@
         "id": 1,
         "category": "GPU",
         "name": "GPU Model 1",
+        "price": "$3499",
         "keywords": ["gpu", "graphics", "video"],
         "image": "./images/the-gpu-1316015_1280.png",
         "description": "A powerful GPU."
@@ -11,6 +12,7 @@
         "id": 2,
         "category": "GPU",
         "name": "GPU Model 2",
+        "price": "$800",
         "keywords": ["gpu", "graphics", "video"],
         "image": "path_to_image",
         "description": "A budget GPU."

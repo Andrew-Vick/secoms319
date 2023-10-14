@@ -176,3 +176,41 @@ body {
   width: 100%;
 }
 
+/* product.css */
+
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  padding-top: 50px;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.modal-title {
+  font-weight: bold;
+}
+
+.modal-footer {
+  background-color: #f8f9fa;
+}
+
+button {
+  border-radius: 0;
+}
+
+.product-img {
+  padding-top: 50px;
+  width: 500px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
