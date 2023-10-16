@@ -5,7 +5,7 @@
         "name": "GPU Model 1",
         "price": "$3499",
         "keywords": ["gpu", "graphics", "video"],
-        "image": "./images/the-gpu-1316015_1280.png",
+        "image": "./images/GPU1.png",
         "description": "A powerful GPU."
     },
     {
@@ -14,7 +14,7 @@
         "name": "GPU Model 2",
         "price": "$800",
         "keywords": ["gpu", "graphics", "video"],
-        "image": "path_to_image",
+        "image": "./images/GPU2.png",
         "description": "A budget GPU."
     },
     {
@@ -22,7 +22,7 @@
         "category": "GPU",
         "name": "GPU Model 3",
         "keywords": ["gpu", "graphics", "video"],
-        "image": "path_to_image",
+        "image": "./images/GPU3.png",
         "description": "A budget GPU."
     },
     {
@@ -30,7 +30,7 @@
         "category": "GPU",
         "name": "GPU Model 4",
         "keywords": ["gpu", "graphics", "video"],
-        "image": "path_to_image",
+        "image": "./images/GPU4.png",
         "description": "A budget GPU."
     },
     {
@@ -38,16 +38,15 @@
         "category": "RAM",
         "name": "RAM 16GB DDR5",
         "keywords": ["ram", "memory", "16gb"],
-        "image": "path_to_image",
+        "image": "./images/RAM1.png",
         "description": "High-speed 16GB RAM."
     },
-    
     {
         "id": 6,
         "category": "RAM",
         "name": "RAM 16GB DDR4",
         "keywords": ["ram", "memory", "16gb","cheap"],
-        "image": "path_to_image",
+        "image": "./images/RAM2.png",
         "description": "slower 16GB RAM."
     },
     {
@@ -55,7 +54,7 @@
         "category": "RAM",
         "name": "RAM 32GB DDR4",
         "keywords": ["ram", "memory", "16gb","cheap"],
-        "image": "path_to_image",
+        "image": "./images/RAM3.png",
         "description": "slower 16GB RAM."
     },
     {
@@ -63,7 +62,7 @@
         "category": "RAM",
         "name": "RAM 16GB DDR3",
         "keywords": ["ram", "memory", "16gb","cheap"],
-        "image": "path_to_image",
+        "image": "./images/RAM4.png",
         "description": "slower 16GB RAM."
     },
     {
@@ -71,7 +70,7 @@
         "category": "CPU",
         "name": "CPU Model 1",
         "keywords": ["cpu", "intel", "8 cores"],
-        "image": "path_to_image",
+        "image": "./images/CPU1.png",
         "description": "A powerful CPU."
     },
     {
@@ -79,7 +78,7 @@
         "category": "CPU",
         "name": "CPU Model 2",
         "keywords": ["cpu", "intel", "8 cores"],
-        "image": "path_to_image",
+        "image": "./images/CPU2.png",
         "description": "A budget CPU."
     },
     {
@@ -87,7 +86,7 @@
         "category": "CPU",
         "name": "CPU Model 3",
         "keywords": ["cpu", "AMD", "8 cores"],
-        "image": "path_to_image",
+        "image": "./images/CPU3.png",
         "description": "A budget CPU."
     },
     {
@@ -95,7 +94,7 @@
         "category": "CPU",
         "name": "CPU Model 4",
         "keywords": ["cpu", "AMD", "12 cores"],
-        "image": "path_to_image",
+        "image": "./images/CPU4.png",
         "description": "A budget CPU."
     },
     {
@@ -103,7 +102,7 @@
         "category": "Accessories",
         "name": "Logitech Keyboard",
         "keywords": ["Keyboard", "Logitech", "rgb"],
-        "image": "path_to_image",
+        "image": "./images/Keyboard1.png",
         "description": "High quality keyboard"
     },
     {
@@ -111,7 +110,7 @@
         "category": "Accessories",
         "name": "Logitech Mouse",
         "keywords": ["Mouse", "Logitech", "rgb"],
-        "image": "path_to_image",
+        "image": "./images/Mouse3.png",
         "description": "High quality keyboard"
     },
     {
@@ -119,7 +118,7 @@
         "category": "Accessories",
         "name": "Logitech Keyboard",
         "keywords": ["Keyboard", "Logitech", "rgb"],
-        "image": "path_to_image",
+        "image": "./images/Keyboard2.png",
         "description": "High quality keyboard"
     },
     {
@@ -127,7 +126,7 @@
         "category": "Accessories",
         "name": "Logitech Keyboard",
         "keywords": ["Keyboard", "Logitech", "rgb"],
-        "image": "path_to_image",
+        "image": "./images/mouse4.png",
         "description": "High quality keyboard"
     }
 
