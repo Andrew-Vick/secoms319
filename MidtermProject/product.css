@@ -50,7 +50,7 @@
   color: white;
 }
 
-body {
+.body {
   font-family: 'Arial', sans-serif;
   background-color: #f8f9fa;
   color: #495057;
@@ -186,4 +186,9 @@ button:hover {
   height: auto;
   display: block;
   margin: 0 auto;
+}
+
+.img-fluid {
+  border-radius: 12px;
+  box-sizing: border-box;
 }
