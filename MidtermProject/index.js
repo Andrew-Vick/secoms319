@@ -86,12 +86,23 @@ function populateProductCards(category) {
                         cardTitle.className = 'card-text';
                         cardTitle.textContent = product.name;
 
+                        const cardCompany = document.createElement('p');
+                        cardCompany.className = 'card-text';
+                        cardCompany.textContent = `By: ${product.company}`;
+
+                        const cardPrice = document.createElement('p');
+                        cardPrice.className = 'card-text';
+                        cardPrice.textContent = `Price: ${product.price}`;
+
+
                         const link = document.createElement('a');
                         link.href = `product-details.html?productId=${product.id}`;
                         link.textContent = 'View Details';
 
                         // Appending elements to create the structure
                         cardBodyDiv.appendChild(cardTitle);
+                        cardBodyDiv.appendChild(cardCompany);
+                        cardBodyDiv.appendChild(cardPrice);
                         cardBodyDiv.appendChild(link);
                         cardDiv.appendChild(img);
                         cardDiv.appendChild(cardBodyDiv);

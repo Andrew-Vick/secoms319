@@ -27,3 +27,8 @@ const productId = getQueryParam('productId');
 if (productId) {
     showProductPopup(productId);
 }
+
+/*Script that takes the user back to the page they were previously viewing*/
+function goBack() {
+    window.history.back();
+}

@@ -2,134 +2,161 @@
     {
         "id": 1,
         "category": "GPU",
-        "name": "GPU Model 1",
-        "price": "$3499",
-        "keywords": ["gpu", "graphics", "video"],
+        "name": "Quantum X1",
+        "company": "TechSphere",
+        "price": "$1,599",
+        "keywords": ["gpu", "TechSphere", "Quantum X1", "gaming", "4k", "ray tracing", "VR ready"],
         "image": "./images/GPU1.png",
-        "description": "A powerful GPU."
+        "description": "Experience ultimate gaming performance with the TechSphere Quantum X1. Designed for intense gaming sessions, supporting 4K resolution, ray tracing, and VR technologies to immerse you in the action."
     },
     {
         "id": 2,
         "category": "GPU",
-        "name": "GPU Model 2",
-        "price": "$800",
-        "keywords": ["gpu", "graphics", "video"],
+        "name": "Razor 2050",
+        "company": "UltraTech",
+        "price": "$549",
+        "keywords": ["gpu", "UltraTech", "Razor 2050", "1080p gaming", "budget", "efficient"],
         "image": "./images/GPU2.png",
-        "description": "A budget GPU."
+        "description": "Meet the UltraTech Razor 2050, a budget-friendly GPU that doesn't compromise on performance. Tailored for smooth 1080p gaming, delivering efficiency and reliability in every frame."
     },
     {
         "id": 3,
         "category": "GPU",
-        "name": "GPU Model 3",
-        "keywords": ["gpu", "graphics", "video"],
+        "name": "Velocity V2",
+        "company": "SpectraTech",
+        "price": "$499",
+        "keywords": ["gpu", "SpectraTech", "Velocity V2", "multi-monitor", "streaming", "content creation"],
         "image": "./images/GPU3.png",
-        "description": "A budget GPU."
+        "description": "SpectraTech's Velocity V2 is your gateway to enhanced multi-monitor setups and smooth streaming. Ideal for content creators looking for versatility and performance."
     },
     {
         "id": 4,
         "category": "GPU",
-        "name": "GPU Model 4",
-        "keywords": ["gpu", "graphics", "video"],
+        "name": "Phantom G4",
+        "company": "NextGenTech",
+        "price": "$699",
+        "keywords": ["gpu", "NextGenTech", "Phantom G4", "high-performance", "AI", "machine learning"],
         "image": "./images/GPU4.png",
-        "description": "A budget GPU."
+        "description": "Unlock unparalleled performance with the NextGenTech Phantom G4, equipped with features to excel in AI and machine learning tasks, offering robust processing capabilities."
     },
     {
         "id": 5,
         "category": "RAM",
-        "name": "RAM 16GB DDR5",
-        "keywords": ["ram", "memory", "16gb"],
+        "name": "ThunderBolt 16GB DDR5",
+        "company": "RamifyTech",
+        "price": "$129",
+        "keywords": ["ram", "RamifyTech", "ThunderBolt", "DDR5", "16GB", "high-speed", "overclock"],
         "image": "./images/RAM1.png",
-        "description": "High-speed 16GB RAM."
+        "description": "Unleash your system's true potential with RamifyTech's ThunderBolt 16GB DDR5. High-speed, low latency, and designed to overclock, it ensures a seamless performance."
     },
     {
         "id": 6,
         "category": "RAM",
-        "name": "RAM 16GB DDR4",
-        "keywords": ["ram", "memory", "16gb","cheap"],
+        "name": "SwiftCore 16GB DDR4",
+        "company": "MemTech",
+        "price": "$89",
+        "keywords": ["ram", "MemTech", "SwiftCore", "DDR4", "16GB", "reliable", "multi-tasking"],
         "image": "./images/RAM2.png",
-        "description": "slower 16GB RAM."
+        "description": "Enhance your multitasking capabilities with MemTech’s SwiftCore 16GB DDR4. Reliable, durable, and optimized for consistent performance in various computing environments."
     },
     {
         "id": 7,
         "category": "RAM",
-        "name": "RAM 32GB DDR4",
-        "keywords": ["ram", "memory", "16gb","cheap"],
+        "name": "ViperStrike 32GB DDR4",
+        "company": "ViperTech",
+        "price": "$159",
+        "keywords": ["ram", "ViperTech", "ViperStrike", "DDR4", "32GB", "gaming", "high-capacity"],
         "image": "./images/RAM3.png",
-        "description": "slower 16GB RAM."
+        "description": "Elevate your gaming and content creation with ViperTech’s ViperStrike 32GB DDR4. High-capacity RAM designed to handle demanding applications with ease."
     },
     {
         "id": 8,
         "category": "RAM",
-        "name": "RAM 16GB DDR3",
-        "keywords": ["ram", "memory", "16gb","cheap"],
+        "name": "Legacy 16GB DDR3",
+        "company": "ClassicTech",
+        "price": "$69",
+        "keywords": ["ram", "ClassicTech", "Legacy", "DDR3", "16GB", "compatibility", "value"],
         "image": "./images/RAM4.png",
-        "description": "slower 16GB RAM."
+        "description": "ClassicTech’s Legacy 16GB DDR3 offers great value, ensuring compatibility and reliable performance for legacy and entry-level systems."
     },
     {
         "id": 9,
         "category": "CPU",
-        "name": "CPU Model 1",
-        "keywords": ["cpu", "intel", "8 cores"],
+        "name": "PowerHouse i9",
+        "company": "ChipMasters",
+        "price": "$499",
+        "keywords": ["cpu", "ChipMasters", "PowerHouse i9", "multi-core", "hyper-threading", "gaming", "workstation"],
         "image": "./images/CPU1.png",
-        "description": "A powerful CPU."
+        "description": "ChipMasters PowerHouse i9 delivers multi-core excellence, hyper-threading, and robust performance, making it suitable for gaming rigs and workstations."
     },
     {
         "id": 10,
         "category": "CPU",
-        "name": "CPU Model 2",
-        "keywords": ["cpu", "intel", "8 cores"],
+        "name": "StreamPro i7",
+        "company": "SiliconGurus",
+        "price": "$349",
+        "keywords": ["cpu", "SiliconGurus", "StreamPro i7", "streaming", "content creation", "efficiency"],
         "image": "./images/CPU2.png",
-        "description": "A budget CPU."
+        "description": "The StreamPro i7 from SiliconGurus is engineered for streamers and content creators, ensuring efficient performance, smooth multitasking, and reliable streaming."
     },
     {
         "id": 11,
         "category": "CPU",
-        "name": "CPU Model 3",
-        "keywords": ["cpu", "AMD", "8 cores"],
+        "name": "Ryzer 7",
+        "company": "InnovaTech",
+        "price": "$299",
+        "keywords": ["cpu", "InnovaTech", "Ryzer 7", "gaming", "VR", "thermal design"],
         "image": "./images/CPU3.png",
-        "description": "A budget CPU."
+        "description": "InnovaTech's Ryzer 7 is a gamer’s delight, featuring enhanced VR capabilities, a thoughtful thermal design, and impressive clock speeds."
     },
     {
         "id": 12,
         "category": "CPU",
-        "name": "CPU Model 4",
-        "keywords": ["cpu", "AMD", "12 cores"],
+        "name": "Xenon X12",
+        "company": "ProcessorPro",
+        "price": "$599",
+        "keywords": ["cpu", "ProcessorPro", "Xenon X12", "12 cores", "high-performance", "AI tasks"],
         "image": "./images/CPU4.png",
-        "description": "A budget CPU."
+        "description": "Explore high-performance computing with ProcessorPro’s Xenon X12, ideal for AI tasks, professional content creation, and heavy multitasking."
     },
     {
         "id": 13,
         "category": "Accessories",
-        "name": "Logitech Keyboard",
-        "keywords": ["Keyboard", "Logitech", "rgb"],
+        "name": "Tactile Pro Keyboard",
+        "company": "Periphera",
+        "price": "$79",
+        "keywords": ["keyboard", "Periphera", "Tactile Pro", "RGB", "ergonomic", "durable"],
         "image": "./images/Keyboard1.png",
-        "description": "High quality keyboard"
+        "description": "Experience superior typing with Periphera's Tactile Pro Keyboard. Equipped with RGB lighting, it offers an ergonomic design and durable build quality."
     },
     {
         "id": 14,
         "category": "Accessories",
-        "name": "Logitech Mouse",
-        "keywords": ["Mouse", "Logitech", "rgb"],
+        "name": "GlideMaster Mouse",
+        "company": "Periphera",
+        "price": "$49",
+        "keywords": ["mouse", "Periphera", "GlideMaster", "RGB", "adjustable DPI", "gaming"],
         "image": "./images/Mouse3.png",
-        "description": "High quality keyboard"
+        "description": "Enhance your navigation with Periphera's GlideMaster Mouse, featuring adjustable DPI settings, vivid RGB lighting, and a design that maximizes comfort and precision."
     },
     {
         "id": 15,
         "category": "Accessories",
-        "name": "Logitech Keyboard",
-        "keywords": ["Keyboard", "Logitech", "rgb"],
+        "name": "Illumina Keyboard",
+        "company": "Periphera",
+        "price": "$99",
+        "keywords": ["keyboard", "Periphera", "Illumina", "backlit", "multimedia keys", "sleek design"],
         "image": "./images/Keyboard2.png",
-        "description": "High quality keyboard"
+        "description": "Discover a sleek design and convenient multimedia keys with the Illumina Keyboard by Periphera. Its backlit keys ensure a delightful typing experience."
     },
     {
         "id": 16,
         "category": "Accessories",
-        "name": "Logitech Keyboard",
-        "keywords": ["Keyboard", "Logitech", "rgb"],
+        "name": "PrecisePoint Mouse",
+        "company": "Periphera",
+        "price": "$39",
+        "keywords": ["mouse", "Periphera", "PrecisePoint", "wireless", "portable", "battery efficient"],
         "image": "./images/mouse4.png",
-        "description": "High quality keyboard"
+        "description": "Experience the freedom of wireless navigation with the PrecisePoint Mouse by Periphera. Its portable design and battery efficiency make it an ideal choice for users on the go."
     }
-
-    
-
 ]
