@@ -1,5 +1,5 @@
 .site-header a {
-  color: #8e8e8e;
+  color: green;
   transition: color .15s ease-in-out;
 }
 
@@ -54,8 +54,8 @@
   font-family: 'Arial', sans-serif;
   background-color: #f8f9fa;
   color: #495057;
-  margin: 0;
-  padding: 0;
+  margin: 0px;
+  padding: 0px;
 }
 
 .header {
@@ -141,25 +141,47 @@
 }
 
 .modal-body {
+  background-color: #5d5d5d;
   padding: 20px;
+  color: #ebeaea;
+  font-size: 120%;
+  text-align: center;
+  margin:0px;
+}
+
+modal-body h2 {
+
+font-weight: strong;
+text-align: center;
+margin:0px;
 }
 
 .modal-header {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #5d5d5d;
+  color: #ebeaea;
+  text-align: left;
+  margin: 0px;
+  padding: 20px;
   text-align: center;
+  background-color: #3f3f3f;
+
 }
 
 .modal-title {
   font-weight: bold;
+  background-color: #3f3f3f;
+  margin: 0px;
+  text-align: center;
+  color:white;
 }
 
 .modal-footer {
-  background-color: #f8f9fa;
+  background-color: #3f3f3f;
+  margin:0px;
 }
 
 button {
-  background-color: #5a5f61;
+  background-color: black;
   color: white;
   border: none;
   padding: 15px 32px;
@@ -167,22 +189,24 @@ button {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-  margin: 4px 2px;
+  margin: 20px 2px;
   transition-duration: 0.4s;
   cursor: pointer;
-  border-radius: 12px;
+  border-radius: 10px;
   box-sizing: border-box;
+  margin-left: 25px;
+  border: 7px solid black;
 }
 
 button:hover {
-  background-color: white;
-  color: black;
-  border: 2px solid #5a5f61;
+  border: 7px solid lightgray;
+  background-color: lightgray;
+  color:rgb(31, 30, 30);
+  border-radius: 10px;
 }
 
 .product-img {
-  padding-top: 50px;
-  width: 500px;
+  width: 60%;
   height: auto;
   display: block;
   margin: 0 auto;
