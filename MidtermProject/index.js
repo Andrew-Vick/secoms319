@@ -5,16 +5,20 @@ function searchProduct() {
 
     if (keyword.length >= 3) {
 
-        if (keyword === 'home') {
+        if (keyword.toLowerCase() === 'home') {
             createLink('./index.html', 'Go to Homepage');
             return;
-        } else if (keyword === 'ram') {
-            createLink('./RAM.html', 'Go to RAM Category');
-        } else if (keyword === 'gpu') {
-            createLink('./gpu.html', 'Go to GPU Category');
-        } else if (keyword === 'Accessories') {
-            createLink('./Accessories.html', 'Go to Accessories Category');
+        } else if (keyword.toLowerCase() === 'ram') {
+            createLink('./RAM.html', 'Go to RAM Page');
+        } else if (keyword.toLowerCase() === 'gpu') {
+            createLink('./gpu.html', 'Go to GPU Page');
+        } else if (keyword.toLowerCase() === 'cpu') {
+            createLink('./cpu.html', 'Go to CPU Page');
+        } else if (keyword.toLowerCase() ==='accessory' || keyword.toLowerCase() === 'accessories' || keyword.toLowerCase() === 'computer') {
+            createLink('./Accessory.html', 'Go to Computer Accessories');
         }
+        
+
 
         // Function to create and append links
         function createLink(href, text) {

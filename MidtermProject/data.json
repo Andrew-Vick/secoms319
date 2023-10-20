@@ -125,7 +125,7 @@
         "name": "Tactile Pro Keyboard",
         "company": "Periphera",
         "price": "$79",
-        "keywords": ["keyboard", "Periphera", "Tactile Pro", "RGB", "ergonomic", "durable"],
+        "keywords": ["keyboard", "Periphera", "Tactile Pro", "RGB", "ergonomic", "durable", "Accessories"],
         "image": "./images/Keyboard1.png",
         "description": "Experience superior typing with Periphera's Tactile Pro Keyboard. Equipped with RGB lighting, it offers an ergonomic design and durable build quality."
     },
@@ -135,7 +135,7 @@
         "name": "GlideMaster Mouse",
         "company": "Periphera",
         "price": "$49",
-        "keywords": ["mouse", "Periphera", "GlideMaster", "RGB", "adjustable DPI", "gaming"],
+        "keywords": ["mouse", "Periphera", "GlideMaster", "RGB", "adjustable DPI", "gaming", "Accessories"],
         "image": "./images/Mouse3.png",
         "description": "Enhance your navigation with Periphera's GlideMaster Mouse, featuring adjustable DPI settings, vivid RGB lighting, and a design that maximizes comfort and precision."
     },
@@ -145,7 +145,7 @@
         "name": "Illumina Keyboard",
         "company": "Periphera",
         "price": "$99",
-        "keywords": ["keyboard", "Periphera", "Illumina", "backlit", "multimedia keys", "sleek design"],
+        "keywords": ["keyboard", "Periphera", "Illumina", "backlit", "multimedia keys", "sleek design", "Accessories"],
         "image": "./images/Keyboard2.png",
         "description": "Discover a sleek design and convenient multimedia keys with the Illumina Keyboard by Periphera. Its backlit keys ensure a delightful typing experience."
     },
@@ -155,7 +155,7 @@
         "name": "PrecisePoint Mouse",
         "company": "Periphera",
         "price": "$39",
-        "keywords": ["mouse", "Periphera", "PrecisePoint", "wireless", "portable", "battery efficient"],
+        "keywords": ["mouse", "Periphera", "PrecisePoint", "wireless", "portable", "battery efficient", "Accessories"],
         "image": "./images/mouse4.png",
         "description": "Experience the freedom of wireless navigation with the PrecisePoint Mouse by Periphera. Its portable design and battery efficiency make it an ideal choice for users on the go."
     }
