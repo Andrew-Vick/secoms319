@@ -41,18 +41,18 @@ function BrowseView({ addToCart, changeView, cartLength }) {
       <div className="row">
         {/* Map over your products and render each one with a Product component */}
         {/* Example of a single product */}
-        <Product title="Airfryer" description="Description here" price={100} addToCart={addToCart}/>
-        <Product title="Toaster" description="Description here" price={20} addToCart={addToCart}/>
-        <Product title="Cereal Dispenser" description="Description here" price={15} addToCart={addToCart}/>
-        <Product title="Blender" description="Description here" price={115} addToCart={addToCart}/>
-        <Product title="Armchair And Ottoman" description="Description here" price={100} addToCart={addToCart}/>
-        <Product title="Llama Cat Bed" description="Description here" price={50} addToCart={addToCart}/>
+        <Product title="Airfryer" description="Description here" price={100} addToCart={addToCart} imagePath={"./images/Airfryer.jpeg"}/>
+        <Product title="Toaster" description="Description here" price={20} addToCart={addToCart} imagePath={"./images/toaster.jpeg"}/>
+        <Product title="Cereal Dispenser" description="Description here" price={15} addToCart={addToCart} imagePath={"./images/cereal.jpeg"}/>
+        <Product title="Blender" description="Description here" price={115} addToCart={addToCart} imagePath={"./images/blender.png"}/>
+        <Product title="Armchair And Ottoman" description="Description here" price={100} addToCart={addToCart} imagePath={"./images/Armchair.jpeg"}/>
+        <Product title="Llama Cat Bed" description="Description here" price={50} addToCart={addToCart} imagePath={"./images/llama.jpeg"}/>
       </div>
     </div>
   );
 }
 
-function Product({ title, description, price, addToCart }) {
+function Product({ title, description, price, addToCart, imagePath }) {
   const handleAddToCart = () => {
     addToCart({ title, price });
   };
@@ -60,7 +60,7 @@ function Product({ title, description, price, addToCart }) {
   return (
     <div className="col-md-4 mb-3">
       <div className="card">
-        <img src="path_to_your_image" className="card-img-top" alt="..." />
+        <img src={imagePath} className="card-img-top" alt="..." />
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{description}</p>
