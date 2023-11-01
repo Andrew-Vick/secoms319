@@ -3,15 +3,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [view, setView] = useState('browse');
+  const [cart, setCart] = useState([]);
 
   const changeView = (newView) => {
     setView(newView);
   };
 
+  const addToCart = (Product) => {
+    setCart(prevCart => [...prevCart, Product])
+  }
+
   return (
     <div className="App">
-      {view === 'browse' && <BrowseView changeView={changeView} />}
-      {view === 'cart' && <CartView changeView={changeView} />}
+      {view === 'browse' && <BrowseView addToCart={addToCart} changeView={changeView} cartLength={cart.length} />}
+      {view === 'cart' && <CartView cart={cart} changeView={changeView} />}
       {view === 'checkout' && <CheckoutForm changeView={changeView} />}
       {view === 'confirmation' && <ConfirmationView changeView={changeView} />}
     </div>
@@ -20,27 +25,37 @@ function App() {
 
 export default App;
 
-function BrowseView({ changeView }) {
+function BrowseView({ addToCart, changeView, cartLength }) {
   // You can define products and a function to handle adding items to the cart here
   
   return (
     <div className="container">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h1>Browse Products</h1>
+        <div>
+          <button className="btn btn-primary mr-2" onClick={() => changeView('cart')}>
+            Go to Cart {cartLength > 0 && <span className="badge badge-light">{cartLength}</span>}
+          </button>
+        </div>
+      </div>
       <div className="row">
         {/* Map over your products and render each one with a Product component */}
         {/* Example of a single product */}
-        <Product title="Airfryer" description="Description here" price={100} />
-        <Product title="Toaster" description="Description here" price={20} />
-        <Product title="Cereal Dispenser" description="Description here" price={15} />
-        <Product title="Blender" description="Description here" price={115} />
-        <Product title="Armchair And Ottoman" description="Description here" price={100} />
-        <Product title="Llama Cat Bed" description="Description here" price={50} />
+        <Product title="Airfryer" description="Description here" price={100} addToCart={addToCart}/>
+        <Product title="Toaster" description="Description here" price={20} addToCart={addToCart}/>
+        <Product title="Cereal Dispenser" description="Description here" price={15} addToCart={addToCart}/>
+        <Product title="Blender" description="Description here" price={115} addToCart={addToCart}/>
+        <Product title="Armchair And Ottoman" description="Description here" price={100} addToCart={addToCart}/>
+        <Product title="Llama Cat Bed" description="Description here" price={50} addToCart={addToCart}/>
       </div>
     </div>
   );
 }
 
-function Product({ title, description, price }) {
-  // This component represents a single product
+function Product({ title, description, price, addToCart }) {
+  const handleAddToCart = () => {
+    addToCart({ title, price });
+  };
   
   return (
     <div className="col-md-4 mb-3">
@@ -50,14 +65,29 @@ function Product({ title, description, price }) {
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{description}</p>
           <p className="card-text">${price}</p>
-          <button className="btn btn-primary">Add to cart</button>
+          <button className="btn btn-primary" onClick={handleAddToCart}>Add to cart</button>
         </div>
       </div>
     </div>
   );
 }
 
-function CartView({ changeView }) {
+function CartView({ cart, changeView }) {
+  const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+
+  return (
+    <div className="container">
+      <h2>Your Cart</h2>
+      <button className="btn btn-secondary mb-3" onClick={() => changeView('browse')}>Back to Browse</button>
+      <ul>
+        {cart.map((product, index) => (
+          <li key={index}>{product.title} - ${product.price}</li>
+        ))}
+      </ul>
+      <p>Total: ${totalPrice}</p>
+      <button className="btn btn-primary" onClick={() => changeView('checkout')}>Proceed to Checkout</button>
+    </div>
+  );
 }
 
 function CheckoutForm({ changeView }) {
