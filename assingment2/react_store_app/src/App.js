@@ -11,7 +11,11 @@ function App() {
 
   const addToCart = (Product) => {
     setCart(prevCart => [...prevCart, Product])
+    
   }
+
+
+  
 
   const removeFromCart = (Product) => {
     setCart(prevCart => {
@@ -37,7 +41,7 @@ function App() {
 
 export default App;
 
-function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
+function BrowseView({ addToCart, changeView, cartLength, removeFromCart, quantity }) {
   const [searchTerm, setSearchTerm] = useState('');
 
   const allProducts = [
@@ -124,21 +128,33 @@ function CheckoutForm({ changeView, cart }) {
 
   const [error, setError] = useState({});
 
-  const totalPrice = cart.reduce((total, product) => total + product.price, 0);
+  const totalPrice = cart.reduce((total, product) => total + (product.price ), 0);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
+
+    if (id === 'card') {
+
+      let cardNumber = value.replace(/\D/g, '');
+
+      cardNumber = cardNumber.substring(0, 16).replace(/(\d{4})(?=\d)/g, '$1-');
+
+      setFormData((prev) => ({
+        ...prev,
+        [id]: cardNumber,
+      }));
+    } else {
+
+      setFormData((prev) => ({
+        ...prev,
+        [id]: value,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newError = {};
-
-    // Add your validation logic here
     for (const key in formData) {
       if (!formData[key]) newError[key] = 'This field is required.';
     }
@@ -149,16 +165,11 @@ function CheckoutForm({ changeView, cart }) {
   return (
     <div className="container">
       <div className="row mb-3">
-      <button className="btn btn-secondary mb-3" onClick={() => changeView('browse')}>Return</button>
+        <button className="btn btn-secondary mb-3" onClick={() => changeView('browse')}>Return</button>
       </div>
       <div className="row">
         <div className="col-md-5">
           <h4>Item(s)</h4>
-          <ul>
-          {cart.map((product, index) => (
-            <li key={index} style={{padding: 20}}> <img style={{height: 100}} src={product.imagePath}></img> {product.title} - ${product.price.toFixed(2)}</li>
-          ))}
-        </ul>
         </div>
         <div className="col-md-3">
           <h4>Quantity</h4>
@@ -167,10 +178,26 @@ function CheckoutForm({ changeView, cart }) {
           <h4>Price</h4>
         </div>
       </div>
+      {cart.map((product, index) => (
+        <div className="row" key={index}>
+          <div className="col-md-5 d-flex align-items-center">
+            <img style={{ height: 50, marginRight: 10 }} src={product.imagePath} alt={product.title} />
+            <span>{product.title}</span>
+          </div>
+          <div className="col-md-3 d-flex align-items-center">
+            <span>{product.quantity}</span>
+          </div>
+          <div className="col-md-4 d-flex align-items-center">
+            <span>${product.price.toFixed(2)}</span>
+          </div>
+        </div>
+      ))}
       <hr />
       <div className="row mb-3">
         <h4>Total: ${totalPrice}</h4>
       </div>
+
+
       <div className="row mb-3">
         <h4>Payment information</h4>
         <form className="needs-validation" onSubmit={handleSubmit} noValidate>
