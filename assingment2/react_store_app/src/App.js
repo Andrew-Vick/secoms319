@@ -1,25 +1,31 @@
-import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { useEffect, useState } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import productsData from "./products.json"
 
+//Main component that manages the view of the website
+//useState is used to maintain view, cart and formData states
+//changeView, clearCart, add and remove from cart functions are used to manipulate and change these states
+//Depending on the view state different webpages are rendered like browse, cart and confirmation 
 function App() {
-  const [view, setView] = useState('browse');
+  const [view, setView] = useState("browse");
   const [cart, setCart] = useState([]);
+  const [formData, setFormData] = useState(null);
 
   const changeView = (newView) => {
     setView(newView);
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const addToCart = (Product) => {
-    setCart(prevCart => [...prevCart, Product])
-    
-  }
-
-
-  
+    setCart((prevCart) => [...prevCart, Product]);
+  };
 
   const removeFromCart = (Product) => {
-    setCart(prevCart => {
-      const index = prevCart.findIndex(item => item.title === Product.title);
+    setCart((prevCart) => {
+      const index = prevCart.findIndex((item) => item.title === Product.title);
       if (index !== -1) {
         return [...prevCart.slice(0, index), ...prevCart.slice(index + 1)];
       }
@@ -27,50 +33,66 @@ function App() {
     });
   };
 
-
+  const updateFormData = (data) => {
+    setFormData(data);
+  };
 
   return (
     <div className="App">
-      {view === 'browse' && <BrowseView addToCart={addToCart} changeView={changeView} cartLength={cart.length} removeFromCart={removeFromCart} />}
-      {view === 'checkout' && <CheckoutForm cart={cart} changeView={changeView} />}
-
-
+      {view === "browse" && (
+        <BrowseView
+          addToCart={addToCart}
+          changeView={changeView}
+          cartLength={cart.length}
+          removeFromCart={removeFromCart}
+        />
+      )}
+      {view === "checkout" && (
+        <CheckoutForm
+          cart={cart}
+          changeView={changeView}
+          updateFormData={updateFormData}
+        />
+      )}
+      {view === "confirmation" && (
+        <ConfirmationView
+          cart={cart}
+          orderData={formData}
+          changeView={changeView}
+          clearCart={clearCart}
+        />
+      )}
     </div>
   );
 }
 
 export default App;
 
-function BrowseView({ addToCart, changeView, cartLength, removeFromCart, quantity }) {
-  const [searchTerm, setSearchTerm] = useState('');
+//Allows users to view and search for different products
+//BrowseView also has it's own states for search terms and product info
+//Based on the states browseView will render the current products in products.json and will filter the users
+//search terms to correlate with current products
+function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [products, setProducts] = useState([]);
 
-  const allProducts = [
-    <Product title="Airfryer" description="Description here" price={100} addToCart={addToCart} removeFromCart={removeFromCart} imagePath={"./images/Airfryer.jpeg"} />,
-    <Product title="Toaster" description="Description here" price={20} addToCart={addToCart} removeFromCart={removeFromCart} imagePath={"./images/toaster.jpeg"} />,
-    <Product title="Cereal Dispenser" description="Description here" price={15} addToCart={addToCart} removeFromCart={removeFromCart} imagePath={"./images/cereal.jpeg"} />,
-    <Product title="Blender" description="Description here" price={115} addToCart={addToCart} removeFromCart={removeFromCart} imagePath={"./images/blender.png"} />,
-    <Product title="Armchair And Ottoman" description="Description here" price={100} addToCart={addToCart} removeFromCart={removeFromCart} imagePath={"./images/Armchair.jpeg"} />,
-    <Product title="Llama Cat Bed" description="Description here" price={50} addToCart={addToCart} removeFromCart={removeFromCart} imagePath={"./images/llama.jpeg"} />,
-  ];
-
-  const filteredProducts = searchTerm
-    ? allProducts.filter(product => product.props.title.toLowerCase().includes(searchTerm.toLowerCase()))
-    : allProducts;
+  useEffect(() => {
+    setProducts(productsData);
+  }, []);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
   };
 
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1>Browse Products</h1>
-        <div>
-          <button className="btn btn-primary mr-2" onClick={() => changeView('checkout')}>
-            Checkout {cartLength > 0 && <span className="badge badge-light">{cartLength} Items</span>}
-          </button>
-        </div>
-        <div className="container">
+        <div className="search-bar">
           <input
             type="text"
             className="form-control"
@@ -79,16 +101,46 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart, quantit
             onChange={handleSearch}
           />
         </div>
+        <div>
+          <button
+            className="btn btn-outline-primary mr-2"
+            onClick={() => changeView("checkout")}
+          >
+            Checkout{" "}
+            {cartLength > 0 && (
+              <span className="badge bg-primary ml-2">{cartLength} Items</span>
+            )}
+          </button>
+        </div>
       </div>
       <div className="row">
-        {filteredProducts}
+        {filteredProducts.map((product, index) => (
+          <Product
+            key={index}
+            title={product.title}
+            description={product.description}
+            price={product.price}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            imagePath={product.imagePath}
+          />
+        ))}
       </div>
     </div>
   );
 }
 
-
-function Product({ title, description, price, addToCart, imagePath, removeFromCart }) {
+//Child component of BrowseView which displays the individual products
+//Also receives product details and functions to manage cart operations
+//such as the addToCart and removeFromCart buttons
+function Product({
+  title,
+  description,
+  price,
+  addToCart,
+  imagePath,
+  removeFromCart,
+}) {
   const handleAddToCart = () => {
     addToCart({ title, price, imagePath });
   };
@@ -99,73 +151,128 @@ function Product({ title, description, price, addToCart, imagePath, removeFromCa
 
   return (
     <div className="col-md-4 mb-3">
-      <div className="card">
+      <div className="card h-100">
         <img src={imagePath} className="card-img-top" alt="..." />
-        <div className="card-body">
+        <div className="card-body d-flex flex-column">
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{description}</p>
           <p className="card-text">${price}</p>
-          <button className="btn btn-primary" onClick={handleAddToCart}>+</button>
-          <button className="btn btn-primary" onClick={handleRemoveFromCart}>-</button>
+          <div className="mt-auto">
+          <button className="btn btn-success" onClick={handleAddToCart}>
+            +
+          </button>
+          <button className="btn btn-danger ml-2" onClick={handleRemoveFromCart}>
+            -
+          </button>
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-
-function CheckoutForm({ changeView, cart }) {
+//CheckoutForm houses the cart and form to check out
+//Displays the items, quantites, and price of the products along with the total price
+//Maintians it's own error states to ensure the user inputs the correct information on the checkout form
+function CheckoutForm({ changeView, cart, updateFormData }) {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    card: '',
-    address1: '',
-    address2: '',
-    city: '',
-    state: '',
-    zip: ''
+    fullName: "",
+    email: "",
+    card: "",
+    address1: "",
+    address2: "",
+    city: "",
+    state: "",
+    zip: "",
   });
+
+  const calculateQuantities = () => {
+    const quantities = {};
+
+    for (const item of cart) {
+      const title = item.title;
+      if (quantities[title]) {
+        quantities[title] += 1;
+      } else {
+        quantities[title] = 1;
+      }
+    }
+
+    return quantities;
+  };
+
+  const quantities = calculateQuantities();
+
+  const calculateTotalPrice = () => {
+    return Object.keys(quantities).reduce((total, title) => {
+      const item = cart.find((item) => item.title === title);
+      return total + item.price * quantities[title];
+    }, 0);
+  };
+
+  const totalPrice = calculateTotalPrice();
 
   const [error, setError] = useState({});
 
-  const totalPrice = cart.reduce((total, product) => total + (product.price ), 0);
+  const validateField = (key, value) => {
+    switch (key) {
+      case 'email':
+        return /\S+@\S+\.\S+/.test(value) ? '' : 'Invalid email format.';
+      case 'card':
+        return /(\d{4}-){3}\d{4}/.test(value) ? '' : 'Invalid card format.';
+      case 'zip':
+        return /^\d{5}(-\d{4})?$/.test(value) ? '' : 'Invalid ZIP format.';
+      default:
+        return value.trim() ? '' : 'This field is required.';
+    }
+  };
 
   const handleChange = (e) => {
     const { id, value } = e.target;
+    let formattedValue = value;
 
     if (id === 'card') {
-
-      let cardNumber = value.replace(/\D/g, '');
-
-      cardNumber = cardNumber.substring(0, 16).replace(/(\d{4})(?=\d)/g, '$1-');
-
-      setFormData((prev) => ({
-        ...prev,
-        [id]: cardNumber,
-      }));
-    } else {
-
-      setFormData((prev) => ({
-        ...prev,
-        [id]: value,
-      }));
+      formattedValue = value.replace(/\D/g, '').substring(0, 16).replace(/(\d{4})(?=\d)/g, '$1-');
     }
+
+    setFormData((prev) => ({
+      ...prev,
+      [id]: formattedValue,
+    }));
+
+    const fieldError = validateField(id, formattedValue);
+    setError((prev) => ({
+      ...prev,
+      [id]: fieldError,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newError = {};
     for (const key in formData) {
-      if (!formData[key]) newError[key] = 'This field is required.';
-    }
+      if (key === 'address2' && !formData[key]) continue;
 
+      const fieldError = validateField(key, formData[key]);
+      if (fieldError) newError[key] = fieldError;
+    }
     setError(newError);
+
+    if (Object.keys(newError).length === 0) {
+      updateFormData(formData);
+      changeView("confirmation");
+    }
   };
 
   return (
     <div className="container">
       <div className="row mb-3">
-        <button className="btn btn-secondary mb-3" onClick={() => changeView('browse')}>Return</button>
+        <button
+          className="btn btn-secondary mb-3"
+          onClick={() => changeView("browse")}
+        >
+          Return
+        </button>
       </div>
       <div className="row">
         <div className="col-md-5">
@@ -177,61 +284,131 @@ function CheckoutForm({ changeView, cart }) {
         <div className="col-md-4">
           <h4>Price</h4>
         </div>
+        <hr />
       </div>
-      {cart.map((product, index) => (
+      {Object.keys(quantities).map((title, index) => (
         <div className="row" key={index}>
           <div className="col-md-5 d-flex align-items-center">
-            <img style={{ height: 50, marginRight: 10 }} src={product.imagePath} alt={product.title} />
-            <span>{product.title}</span>
+            <img
+              style={{ height: 100, marginRight: 10, marginBottom: 10 }}
+              src={cart.find((item) => item.title === title).imagePath}
+              alt={title}
+            />
+            <span>{title}</span>
           </div>
           <div className="col-md-3 d-flex align-items-center">
-            <span>{product.quantity}</span>
+            <span>{quantities[title] + "  x"}</span>
           </div>
           <div className="col-md-4 d-flex align-items-center">
-            <span>${product.price.toFixed(2)}</span>
+            <span>
+              ${cart.find((item) => item.title === title).price.toFixed(2)}
+            </span>
           </div>
+          <hr />
         </div>
       ))}
-      <hr />
-      <div className="row mb-3">
-        <h4>Total: ${totalPrice}</h4>
-      </div>
 
+      <div className="row mb-3">
+        <h4> Total Price: ${totalPrice.toFixed(2)}</h4>
+      </div>
+      <hr />
 
       <div className="row mb-3">
         <h4>Payment information</h4>
         <form className="needs-validation" onSubmit={handleSubmit} noValidate>
           <div className="mb-3">
-            <label htmlFor="fullName" className="form-label">Full Name</label>
-            <input type="text" className={`form-control ${error.fullName ? 'is-invalid' : ''}`} id="fullName" value={formData.fullName} onChange={handleChange} required />
+            <label htmlFor="fullName" className="form-label">
+              Full Name
+            </label>
+            <input
+              type="text"
+              className={`form-control ${error.fullName ? "is-invalid" : ""}`}
+              id="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
+            />
             <div className="invalid-feedback">{error.fullName}</div>
           </div>
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email</label>
-            <input type="email" className={`form-control ${error.email ? 'is-invalid' : ''}`} id="email" value={formData.email} onChange={handleChange} required />
+            <label htmlFor="email" className="form-label">
+              Email
+            </label>
+            <input
+              type="email"
+              className={`form-control ${error.email ? "is-invalid" : ""}`}
+              id="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
             <div className="invalid-feedback">{error.email}</div>
           </div>
           <div className="mb-3">
-            <label htmlFor="card" className="form-label">Card</label>
-            <input type="text" className={`form-control ${error.card ? 'is-invalid' : ''}`} id="card" value={formData.card} onChange={handleChange} required placeholder="XXXX-XXXX-XXXX-XXXX" />
+            <label htmlFor="card" className="form-label">
+              Card
+            </label>
+            <input
+              type="text"
+              className={`form-control ${error.card ? "is-invalid" : ""}`}
+              id="card"
+              value={formData.card}
+              onChange={handleChange}
+              required
+              placeholder="XXXX-XXXX-XXXX-XXXX"
+            />
             <div className="invalid-feedback">{error.card}</div>
           </div>
           <div className="mb-3">
-            <label htmlFor="address1" className="form-label">Address</label>
-            <input type="text" className={`form-control ${error.address1 ? 'is-invalid' : ''}`} id="address1" value={formData.address1} onChange={handleChange} required placeholder="1234 Main St" />
+            <label htmlFor="address1" className="form-label">
+              Address
+            </label>
+            <input
+              type="text"
+              className={`form-control ${error.address1 ? "is-invalid" : ""}`}
+              id="address1"
+              value={formData.address1}
+              onChange={handleChange}
+              required
+              placeholder="1234 Main St"
+            />
             <div className="invalid-feedback">{error.address1}</div>
           </div>
           <div className="mb-3">
-            <input type="text" className={`form-control ${error.address2 ? 'is-invalid' : ''}`} id="address2" value={formData.address2} onChange={handleChange} required placeholder="Apartment, studio, or floor" />
+            <input
+              type="text"
+              className={`form-control ${error.address2 && formData.address2 ? "is-invalid" : ""}`}
+              id="address2"
+              value={formData.address2}
+              onChange={handleChange}
+
+              placeholder="Apartment, studio, or floor"
+            />
             <div className="invalid-feedback">{error.address2}</div>
           </div>
           <div className="row">
             <div className="col-md-5 mb-3">
-              <input type="text" className={`form-control`} id="city" value={formData.city} onChange={handleChange} required placeholder="City" />
+              <input
+                type="text"
+                className={`form-control ${error.city ? "is-invalid" : ""}`}
+                id="city"
+                value={formData.city}
+                onChange={handleChange}
+                required
+                placeholder="City"
+              />
             </div>
             <div className="col-md-4 mb-3">
-              <select className="form-select" id="state" value={formData.state} onChange={handleChange} required>
-                <option value="" disabled>Choose...</option>
+              <select
+                className={`form-select ${error.state ? "is-invalid" : ""}`}
+                id="state"
+                value={formData.state}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Choose...
+                </option>
                 <option>Iowa</option>
                 <option>Missouri</option>
                 <option>Colorado</option>
@@ -239,25 +416,140 @@ function CheckoutForm({ changeView, cart }) {
               </select>
             </div>
             <div className="col-md-3 mb-3">
-              <input type="text" className={`form-control ${error.zip ? 'is-invalid' : ''}`} id="zip" value={formData.zip} onChange={handleChange} required placeholder="Zip" />
+              <input
+                type="text"
+                className={`form-control ${error.zip ? "is-invalid" : ""}`}
+                id="zip"
+                value={formData.zip}
+                onChange={handleChange}
+                required
+                placeholder="Zip"
+              />
               <div className="invalid-feedback">{error.zip}</div>
             </div>
           </div>
-          <div className="mb-3">
-            <div className="form-check">
-              <input type="checkbox" className="form-check-input" id="save-info" />
-              <label className="form-check-label" htmlFor="save-info">Check me out</label>
-            </div>
-          </div>
-          <button type="submit" className="btn btn-primary btn-lg btn-block">Order</button>
+          <button type="submit" className="btn btn-primary btn-lg btn-block">
+            Order
+          </button>
         </form>
       </div>
     </div>
   );
 }
 
+//Displays the order summary 
+//including purchased products and the users information
+function ConfirmationView({ cart, orderData, changeView, clearCart }) {
+  const calculateQuantities = () => {
+    const quantities = {};
 
-function ConfirmationView({ changeView }) {
+    for (const item of cart) {
+      const title = item.title;
+      if (quantities[title]) {
+        quantities[title] += 1;
+      } else {
+        quantities[title] = 1;
+      }
+    }
+
+    return quantities;
+  };
+
+  const quantities = calculateQuantities();
+
+  const calculateTotalPrice = () => {
+    return Object.keys(quantities).reduce((total, title) => {
+      const item = cart.find((item) => item.title === title);
+      return total + item.price * quantities[title];
+    }, 0);
+  };
+
+  const totalPrice = calculateTotalPrice();
+
+  return (
+    <div className="container">
+      <div className="row">
+        <h1 className="text-success">You have made an order!</h1>
+        <h2>Order summary</h2>
+        <hr />
+
+        <div className="col-md-5">
+          <h4>Item(s)</h4>
+        </div>
+        <div className="col-md-3">
+          <h4>Quantity</h4>
+        </div>
+        <div className="col-md-4">
+          <h4>Price</h4>
+        </div>
+      </div>
+      <hr />
+      {Object.keys(quantities).map((title, index) => (
+        <div className="row" key={index}>
+          <div className="col-md-5 d-flex align-items-center">
+            <img
+              style={{ height: 50, marginRight: 10, marginBottom: 10 }}
+              src={cart.find((item) => item.title === title).imagePath}
+              alt={title}
+            />
+            <span>{title}</span>
+          </div>
+          <div className="col-md-3 d-flex align-items-center">
+            <span>{quantities[title] + "  x"}</span>
+          </div>
+          <div className="col-md-4 d-flex align-items-center">
+            <span>
+              ${cart.find((item) => item.title === title).price.toFixed(2)}
+            </span>
+          </div>
+          <hr />
+        </div>
+      ))}
+
+      <div className="row mb-3">
+        <h4> Total Price: ${totalPrice.toFixed(2)}</h4>
+      </div>
+      <hr />
+
+      {orderData && (
+        <div>
+          <p>
+            <strong>Contact Information:</strong>{" "}
+          </p>
+          <p>
+            <strong>Name:</strong> {orderData.fullName}
+          </p>
+          <p>
+            <strong>Email:</strong> {orderData.email}
+          </p>
+          <br></br>
+          <p>
+            <strong>Billing Information:</strong>{" "}
+          </p>
+          <p>
+            <strong>Card:</strong> ****-****-****-{orderData.card.slice(-4)}
+          </p>
+          <br></br>
+          <p>
+            <strong>Shipping Information:</strong>{" "}
+          </p>
+          <p>{orderData.address1}</p>
+          <p>{orderData.address2} </p>
+          <p>
+            {orderData.city}, {orderData.state} {orderData.zip}
+          </p>
+        </div>
+      )}
+
+      <button
+        className="btn btn-success btn-lg btn-block"
+        onClick={() => {
+          changeView("browse");
+          clearCart();
+        }}
+      >
+        Continue Shopping
+      </button>
+    </div>
+  );
 }
-
-

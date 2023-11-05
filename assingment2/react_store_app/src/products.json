@@ -1,0 +1,38 @@
+[
+    {
+        "title": "Airfryer",
+        "description": "An airfryer is the perfect addition to anyone's kitchen. Tired of having soggy chicken nuggets or waiting days for the oven to preheat? An airfryer solves all of those problems by cooking fast and cooking those chicken nuggetss to perfection with a nice crunch.",
+        "price": 100,
+        "imagePath": "./images/Airfryer.jpeg"
+    },
+    {
+        "title": "Toaster",
+        "description": "This toaster is sure to make your morning brighter by perfectly toasting your bread, bagels and even frozen items to a perfect golden brown. With this toaster in your kitchen arsenal you'll longer have to settle for a bacon and egg sandwhich on cold normal bread.",
+        "price": 20,
+        "imagePath": "./images/toaster.jpeg"
+    },
+    {
+        "title": "Cereal Dispenser",
+        "description": "Do you hate the jet enginer level of noise a cereal bag or box makes in the morning? If so this dispenser was made for you. Allowing you to peacefully pour your bowl of cereal in the morning without putting your hearing at risk. (Cereal not included)",
+        "price": 15,
+        "imagePath": "./images/cereal.jpeg"
+    },
+    {
+        "title": "Blender",
+        "description": "The blades are as sharp as a dull knife and as loud as a jackhammer, perfect for waking up your roomates.",
+        "price": 115,
+        "imagePath": "./images/Blender.png"
+    },
+    {
+        "title": "Armchair and Ottoman",
+        "description": "This single seat armchair is perfect for relaxing especially when you want a space all to yourself it even comes with the ottoman. If you're looking for a nice place to kick up your feet and let the stress of the day melt away this chair is made for you.",
+        "price": 100,
+        "imagePath": "./images/armchair.jpeg"
+    },
+    {
+        "title": "Llama Cat Bed",
+        "description": "For all you cat lovers out there we have the perfect bed for them. Not only does this give them an enclosed space they can hide out in, the style of it is a great converstaion starter. Who wouldn't want a llama cat bed in their living room I know you wouldn't!",
+        "price": 50,
+        "imagePath": "./images/llama.jpeg"
+    }
+]
