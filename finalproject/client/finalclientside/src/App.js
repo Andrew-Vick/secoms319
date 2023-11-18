@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 //Main component that manages the view of the website
@@ -25,7 +30,7 @@ function App() {
 
   const removeFromCart = (Product) => {
     setCart((prevCart) => {
-      const index = prevCart.findIndex((item) => item.title === Product.title);
+      const index = prevCart.findIndex((item) => item.title === Product.name);
       if (index !== -1) {
         return [...prevCart.slice(0, index), ...prevCart.slice(index + 1)];
       }
@@ -38,31 +43,41 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {view === "browse" && (
-        <BrowseView
-          addToCart={addToCart}
-          changeView={changeView}
-          cartLength={cart.length}
-          removeFromCart={removeFromCart}
-        />
-      )}
-      {view === "checkout" && (
-        <CheckoutForm
-          cart={cart}
-          changeView={changeView}
-          updateFormData={updateFormData}
-        />
-      )}
-      {view === "confirmation" && (
-        <ConfirmationView
-          cart={cart}
-          orderData={formData}
-          changeView={changeView}
-          clearCart={clearCart}
-        />
-      )}
-    </div>
+    // <div className="App">
+    //   {view === "browse" && (
+    //     <BrowseView
+    //       addToCart={addToCart}
+    //       changeView={changeView}
+    //       cartLength={cart.length}
+    //       removeFromCart={removeFromCart}
+    //     />
+    //   )}
+    //   {view === "checkout" && (
+    //     <CheckoutForm
+    //       cart={cart}
+    //       changeView={changeView}
+    //       updateFormData={updateFormData}
+    //     />
+    //   )}
+    //   {view === "confirmation" && (
+    //     <ConfirmationView
+    //       cart={cart}
+    //       orderData={formData}
+    //       changeView={changeView}
+    //       clearCart={clearCart}
+    //     />
+    //   )}
+    <Router>
+      <Routes>
+        <Route path="/" element={<BrowseView addToCart={addToCart} cartLength={cart.length} removeFromCart={removeFromCart} />} />
+        <Route path="/category/:categoryName" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
+        <Route path="/checkout" element={<CheckoutForm cart={cart} changeView={changeView} updateFormData={updateFormData} />} />
+        <Route path="/confirmation" element={<ConfirmationView cart={cart} orderData={formData} changeView={changeView} clearCart={clearCart} />} />
+
+      </Routes>
+    </Router>
+
+    //</div>
   );
 }
 
@@ -75,10 +90,11 @@ export default App;
 function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetch the products from the server
-    fetch('/FinalData') // This URL is relative due to the proxy setting in package.json
+    fetch('/FinalData')
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -86,19 +102,32 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
         throw new Error('Network response was not ok.');
       })
       .then((data) => {
-        setProducts(data);
+        // Use environment variable to determine the server URL
+        const serverUrl = process.env.REACT_APP_API_URL || 'http://localhost:8081';
+        const updatedProducts = data.map(product => {
+          return {
+            ...product,
+            // Only replace the './images/' if it's present in the path
+            image: product.image.startsWith('./images/')
+              ? `${serverUrl}${product.image.replace('./images/', '/images/')}`
+              : `${serverUrl}/images/${product.image}`
+          };
+        });
+        setProducts(updatedProducts); // Update the state with the transformed data
       })
       .catch((error) => {
         console.error('Fetch error:', error);
       });
   }, []);
 
+
+
   const handleSearch = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
   };
 
   const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -115,33 +144,150 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
           />
         </div>
         <div>
-          <button
-            className="btn btn-outline-primary mr-2"
-            onClick={() => changeView("checkout")}
+          <button onClick={() => navigate('/checkout')} className="btn btn-primary"
           >
             Checkout{" "}
             {cartLength > 0 && (
               <span className="badge bg-primary ml-2">{cartLength} Items</span>
             )}
           </button>
+          <Link to="/category/GPU">
+            <button className="btn btn-primary">
+              View GPUs
+            </button>
+          </Link>
         </div>
       </div>
+      <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
+        <div className="carousel-indicators">
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        </div>
+        <div className="carousel-inner">
+          <div className="carousel-item active">
+            <img src="./images/GPU1.png" className="d-block w-100" alt="First slide" />
+            <div className="container">
+              <div className="carousel-caption text-start">
+                <h1>Quantum X1</h1>
+                <p>The most robust GPU on the market. With an impressive speed of 100 TFLOPS nothing on the market today compares to this beast!</p>
+                <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+              </div>
+            </div>
+          </div>
+          <div className="carousel-item">
+            <img src="./images/RAM1.png" className="d-block w-100" alt="First slide" />
+            <div className="container">
+              <div className="carousel-caption text-start">
+                <h1>ThunderBolt 16GB DDR5</h1>
+                <p>Some representative placeholder content for the first slide.</p>
+                <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+              </div>
+            </div>
+          </div>
+          <div className="carousel-item">
+            <img src="./images/CPU3.png" className="d-block w-100" alt="First slide" />
+            <div className="container">
+              <div className="carousel-caption text-start">
+                <h1>Ryzer 7</h1>
+                <p>Some representative placeholder content for the first slide.</p>
+                <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+              </div>
+            </div>
+          </div>
+          <div className="carousel-item">
+            <img src="./images/keyboard1.png" className="d-block w-100" alt="First slide" />
+            <div className="container">
+              <div className="carousel-caption text-start">
+                <h1>Tactile Pro Keyboard</h1>
+                <p>Some representative placeholder content for the first slide.</p>
+                <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button className="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Previous</span>
+        </button>
+        <button className="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+          <span className="carousel-control-next-icon" aria-hidden="true"></span>
+          <span className="visually-hidden">Next</span>
+        </button>
+      </div>
+
       <div className="row">
         {filteredProducts.map((product, index) => (
           <Product
             key={index}
-            title={product.title}
+            title={product.name}
             description={product.description}
             price={product.price}
             addToCart={addToCart}
             removeFromCart={removeFromCart}
-            imagePath={product.imagePath}
+            imagePath={product.image}
           />
         ))}
       </div>
     </div>
   );
 }
+
+function CategoryView({ addToCart, removeFromCart, changeView, cart, cartLength }) {
+  const [products, setProducts] = useState([]);
+  const { categoryName } = useParams(); // Use the useParams hook to extract parameters
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const query = categoryName ? `?category=${encodeURIComponent(categoryName)}` : '';
+    fetch(`/FinalData${query}`)
+      .then((response) => response.ok ? response.json() : Promise.reject('Network response was not ok.'))
+      .then((data) => {
+        const serverUrl = process.env.REACT_APP_API_URL || 'http://localhost:8081';
+        const categoryProducts = data.map((product) => ({
+          ...product,
+          image: product.image.startsWith('./images/')
+            ? `${serverUrl}${product.image.replace('./images/', '/images/')}`
+            : `${serverUrl}/images/${product.image}`
+        }));
+        setProducts(categoryProducts);
+      })
+      .catch((error) => console.error('Fetch error:', error));
+  }, [categoryName]); // Add category as a dependency to the useEffect hook
+
+  return (
+    <div className="container">
+      <h1>{categoryName} Products</h1>
+      <div>
+        <button onClick={() => navigate('/checkout')} className="btn btn-primary"
+        >
+          Checkout{" "}
+          {cartLength > 0 && (
+            <span className="badge bg-primary ml-2">{cartLength} Items</span>
+          )}
+        </button>
+        <button onClick={() => navigate('/')} className="btn btn-primary">
+          Back to Browse
+        </button>
+      </div>
+      <div className="row">
+        {products.map((product, index) => (
+          <Product
+            key={index}
+            title={product.name}
+            description={product.description}
+            price={product.price}
+            addToCart={addToCart}
+            removeFromCart={removeFromCart}
+            imagePath={product.image}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 
 //Child component of BrowseView which displays the individual products
 //Also receives product details and functions to manage cart operations
@@ -171,12 +317,12 @@ function Product({
           <p className="card-text">{description}</p>
           <p className="card-text">${price}</p>
           <div className="mt-auto">
-          <button className="btn btn-success" onClick={handleAddToCart}>
-            +
-          </button>
-          <button className="btn btn-danger ml-2" onClick={handleRemoveFromCart}>
-            -
-          </button>
+            <button className="btn btn-success" onClick={handleAddToCart}>
+              +
+            </button>
+            <button className="btn btn-danger ml-2" onClick={handleRemoveFromCart}>
+              -
+            </button>
           </div>
         </div>
       </div>
@@ -188,6 +334,7 @@ function Product({
 //Displays the items, quantites, and price of the products along with the total price
 //Maintians it's own error states to ensure the user inputs the correct information on the checkout form
 function CheckoutForm({ changeView, cart, updateFormData }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -260,30 +407,46 @@ function CheckoutForm({ changeView, cart, updateFormData }) {
     }));
   };
 
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   const newError = {};
+  //   for (const key in formData) {
+  //     if (key === 'address2' && !formData[key]) continue;
+
+  //     const fieldError = validateField(key, formData[key]);
+  //     if (fieldError) newError[key] = fieldError;
+  //   }
+  //   setError(newError);
+
+  //   if (Object.keys(newError).length === 0) {
+  //     updateFormData(formData);
+  //     changeView("confirmation");
+  //   }
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const newError = {};
+    // Validate all fields and populate newError object
     for (const key in formData) {
       if (key === 'address2' && !formData[key]) continue;
-
       const fieldError = validateField(key, formData[key]);
-      if (fieldError) newError[key] = fieldError;
+      if (fieldError) {
+        newError[key] = fieldError;
+      }
     }
-    setError(newError);
 
+    setError(newError);
     if (Object.keys(newError).length === 0) {
-      updateFormData(formData);
-      changeView("confirmation");
+      updateFormData(formData); // Assuming this updates the state in the App component
+      navigate('/confirmation'); // Navigate to the confirmation view
     }
-  };
+  }
 
   return (
     <div className="container">
       <div className="row mb-3">
-        <button
-          className="btn btn-secondary mb-3"
-          onClick={() => changeView("browse")}
-        >
+        <button onClick={() => navigate('/')} className="btn btn-primary">
           Return
         </button>
       </div>
@@ -453,6 +616,7 @@ function CheckoutForm({ changeView, cart, updateFormData }) {
 //Displays the order summary 
 //including purchased products and the users information
 function ConfirmationView({ cart, orderData, changeView, clearCart }) {
+  const navigate = useNavigate();
   const calculateQuantities = () => {
     const quantities = {};
 
@@ -554,7 +718,7 @@ function ConfirmationView({ cart, orderData, changeView, clearCart }) {
         </div>
       )}
 
-      <button
+      {/* <button
         className="btn btn-success btn-lg btn-block"
         onClick={() => {
           changeView("browse");
@@ -562,7 +726,10 @@ function ConfirmationView({ cart, orderData, changeView, clearCart }) {
         }}
       >
         Continue Shopping
-      </button>
+      </button> */}
+      <button onClick={() => {navigate('/'); clearCart();}} className="btn btn-primary">
+          Back to Browse
+        </button>
     </div>
   );
 }
