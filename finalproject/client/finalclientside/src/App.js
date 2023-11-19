@@ -30,7 +30,7 @@ function App() {
 
   const removeFromCart = (Product) => {
     setCart((prevCart) => {
-      const index = prevCart.findIndex((item) => item.title === Product.name);
+      const index = prevCart.findIndex((item) => item.title === Product.title);
       if (index !== -1) {
         return [...prevCart.slice(0, index), ...prevCart.slice(index + 1)];
       }
@@ -43,30 +43,6 @@ function App() {
   };
 
   return (
-    // <div className="App">
-    //   {view === "browse" && (
-    //     <BrowseView
-    //       addToCart={addToCart}
-    //       changeView={changeView}
-    //       cartLength={cart.length}
-    //       removeFromCart={removeFromCart}
-    //     />
-    //   )}
-    //   {view === "checkout" && (
-    //     <CheckoutForm
-    //       cart={cart}
-    //       changeView={changeView}
-    //       updateFormData={updateFormData}
-    //     />
-    //   )}
-    //   {view === "confirmation" && (
-    //     <ConfirmationView
-    //       cart={cart}
-    //       orderData={formData}
-    //       changeView={changeView}
-    //       clearCart={clearCart}
-    //     />
-    //   )}
     <Router>
       <Routes>
         <Route path="/" element={<BrowseView addToCart={addToCart} cartLength={cart.length} removeFromCart={removeFromCart} />} />
@@ -76,8 +52,6 @@ function App() {
 
       </Routes>
     </Router>
-
-    //</div>
   );
 }
 
@@ -151,11 +125,6 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <span className="badge bg-primary ml-2">{cartLength} Items</span>
             )}
           </button>
-          <Link to="/category/GPU">
-            <button className="btn btn-primary">
-              View GPUs
-            </button>
-          </Link>
         </div>
       </div>
       <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
@@ -218,17 +187,27 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
       </div>
 
       <div className="row">
-        {filteredProducts.map((product, index) => (
-          <Product
-            key={index}
-            title={product.name}
-            description={product.description}
-            price={product.price}
-            addToCart={addToCart}
-            removeFromCart={removeFromCart}
-            imagePath={product.image}
-          />
-        ))}
+        <Link to="/category/GPU">
+            <button className="btn btn-primary">
+              View GPUs
+            </button>
+          </Link>
+          <Link to="/category/RAM">
+            <button className="btn btn-primary">
+              View RAM
+            </button>
+          </Link>
+          <Link to="/category/CPU">
+            <button className="btn btn-primary">
+              View CPUs
+            </button>
+          </Link>
+          <Link to="/category/Accessories">
+            <button className="btn btn-primary">
+              View Computer Accesories
+            </button>
+          </Link>
+        
       </div>
     </div>
   );
@@ -407,23 +386,6 @@ function CheckoutForm({ changeView, cart, updateFormData }) {
     }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const newError = {};
-  //   for (const key in formData) {
-  //     if (key === 'address2' && !formData[key]) continue;
-
-  //     const fieldError = validateField(key, formData[key]);
-  //     if (fieldError) newError[key] = fieldError;
-  //   }
-  //   setError(newError);
-
-  //   if (Object.keys(newError).length === 0) {
-  //     updateFormData(formData);
-  //     changeView("confirmation");
-  //   }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const newError = {};
@@ -446,7 +408,7 @@ function CheckoutForm({ changeView, cart, updateFormData }) {
   return (
     <div className="container">
       <div className="row mb-3">
-        <button onClick={() => navigate('/')} className="btn btn-primary">
+        <button onClick={() => navigate(-1)} className="btn btn-primary">
           Return
         </button>
       </div>
@@ -717,16 +679,6 @@ function ConfirmationView({ cart, orderData, changeView, clearCart }) {
           </p>
         </div>
       )}
-
-      {/* <button
-        className="btn btn-success btn-lg btn-block"
-        onClick={() => {
-          changeView("browse");
-          clearCart();
-        }}
-      >
-        Continue Shopping
-      </button> */}
       <button onClick={() => {navigate('/'); clearCart();}} className="btn btn-primary">
           Back to Browse
         </button>
