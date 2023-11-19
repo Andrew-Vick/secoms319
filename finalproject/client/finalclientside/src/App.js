@@ -76,18 +76,16 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
         throw new Error('Network response was not ok.');
       })
       .then((data) => {
-        // Use environment variable to determine the server URL
         const serverUrl = process.env.REACT_APP_API_URL || 'http://localhost:8081';
         const updatedProducts = data.map(product => {
           return {
             ...product,
-            // Only replace the './images/' if it's present in the path
             image: product.image.startsWith('./images/')
               ? `${serverUrl}${product.image.replace('./images/', '/images/')}`
               : `${serverUrl}/images/${product.image}`
           };
         });
-        setProducts(updatedProducts); // Update the state with the transformed data
+        setProducts(updatedProducts);
       })
       .catch((error) => {
         console.error('Fetch error:', error);
@@ -105,7 +103,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
   );
 
   return (
-    <div className="container">
+    <div className="container bg-light">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1>Browse Products</h1>
         <div className="search-bar">
@@ -134,14 +132,14 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
-        <div className="carousel-inner">
+        <div className="carousel-inner py-4">
           <div className="carousel-item active">
             <img src="./images/GPU1.png" className="d-block w-100" alt="First slide" />
             <div className="container">
               <div className="carousel-caption text-start">
                 <h1>Quantum X1</h1>
                 <p>The most robust GPU on the market. With an impressive speed of 100 TFLOPS nothing on the market today compares to this beast!</p>
-                <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                <p><a className="btn btn-lg btn-primary" href="#">View</a></p>
               </div>
             </div>
           </div>
@@ -151,7 +149,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <div className="carousel-caption text-start">
                 <h1>ThunderBolt 16GB DDR5</h1>
                 <p>Some representative placeholder content for the first slide.</p>
-                <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                <p><a className="btn btn-lg btn-primary" href="#">View</a></p>
               </div>
             </div>
           </div>
@@ -161,7 +159,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <div className="carousel-caption text-start">
                 <h1>Ryzer 7</h1>
                 <p>Some representative placeholder content for the first slide.</p>
-                <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                <p><a className="btn btn-lg btn-primary" href="#">View</a></p>
               </div>
             </div>
           </div>
@@ -171,7 +169,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <div className="carousel-caption text-start">
                 <h1>Tactile Pro Keyboard</h1>
                 <p>Some representative placeholder content for the first slide.</p>
-                <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+                <p><a className="btn btn-lg btn-primary" href="#">View</a></p>
               </div>
             </div>
           </div>
@@ -185,29 +183,91 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
           <span className="visually-hidden">Next</span>
         </button>
       </div>
-
-      <div className="row">
-        <Link to="/category/GPU">
-            <button className="btn btn-primary">
-              View GPUs
-            </button>
-          </Link>
-          <Link to="/category/RAM">
-            <button className="btn btn-primary">
-              View RAM
-            </button>
-          </Link>
-          <Link to="/category/CPU">
-            <button className="btn btn-primary">
-              View CPUs
-            </button>
-          </Link>
-          <Link to="/category/Accessories">
-            <button className="btn btn-primary">
-              View Computer Accesories
-            </button>
-          </Link>
-        
+      <div className="container marketing">
+        <div className="row py-4">
+          <div className="col-lg-6 col-12">
+          <img
+              src="./images/GPU2.png"
+              className="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              role="img"
+              aria-label="Placeholder"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+              alt="A description of the image"
+            />
+            <h2 className="fw-normal">Heading</h2>
+            <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+            <p><Link to="/category/GPU">
+              <button className="btn btn-primary">
+                View GPUs
+              </button>
+            </Link></p>
+          </div>
+          <div className="col-lg-6 col-12">
+          <img
+              src="./images/RAM3.png"
+              className="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              role="img"
+              aria-label="Placeholder"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+              alt="A description of the image" 
+            />
+            <h2 className="fw-normal">Heading</h2>
+            <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
+            <p>
+              <Link to="/category/RAM">
+                <button className="btn btn-primary">
+                  View RAM
+                </button>
+              </Link>
+            </p>
+          </div>
+          <div className="col-lg-6 col-12 py-4">
+            <img
+              src="./images/CPU1.png"
+              className="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              role="img"
+              aria-label="Placeholder"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+              alt="A description of the image"
+            />
+            <h2 className="fw-normal">Heading</h2>
+            <p>And lastly this, the third column of representative placeholder content.</p>
+            <p><Link to="/category/CPU">
+              <button className="btn btn-primary">
+                View CPUs
+              </button>
+            </Link></p>
+          </div>
+          <div className="col-lg-6 col-12 py-4">
+          <img
+              src="./images/Mouse3.png" 
+              className="bd-placeholder-img rounded-circle"
+              width="140"
+              height="140"
+              role="img"
+              aria-label="Placeholder"
+              preserveAspectRatio="xMidYMid slice"
+              focusable="false"
+              alt="A description of the image"
+            />
+            <h2 className="fw-normal">Heading</h2>
+            <p>And lastly this, the third column of representative placeholder content.</p>
+            <p><Link to="/category/Accessories">
+              <button className="btn btn-primary">
+                View Computer Accesories
+              </button>
+            </Link></p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -215,7 +275,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
 
 function CategoryView({ addToCart, removeFromCart, changeView, cart, cartLength }) {
   const [products, setProducts] = useState([]);
-  const { categoryName } = useParams(); // Use the useParams hook to extract parameters
+  const { categoryName } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -233,7 +293,7 @@ function CategoryView({ addToCart, removeFromCart, changeView, cart, cartLength 
         setProducts(categoryProducts);
       })
       .catch((error) => console.error('Fetch error:', error));
-  }, [categoryName]); // Add category as a dependency to the useEffect hook
+  }, [categoryName]);
 
   return (
     <div className="container">
@@ -400,8 +460,8 @@ function CheckoutForm({ changeView, cart, updateFormData }) {
 
     setError(newError);
     if (Object.keys(newError).length === 0) {
-      updateFormData(formData); // Assuming this updates the state in the App component
-      navigate('/confirmation'); // Navigate to the confirmation view
+      updateFormData(formData);
+      navigate('/confirmation');
     }
   }
 
@@ -679,9 +739,9 @@ function ConfirmationView({ cart, orderData, changeView, clearCart }) {
           </p>
         </div>
       )}
-      <button onClick={() => {navigate('/'); clearCart();}} className="btn btn-primary">
-          Back to Browse
-        </button>
+      <button onClick={() => { navigate('/'); clearCart(); }} className="btn btn-primary">
+        Back to Browse
+      </button>
     </div>
   );
 }
