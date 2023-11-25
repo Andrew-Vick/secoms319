@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { Toast } from 'bootstrap';
+import "./style.css";
 
 
 //Main component that manages the view of the website
@@ -47,7 +49,8 @@ function App() {
       <Routes>
         <Route path="/" element={<BrowseView addToCart={addToCart} cartLength={cart.length} removeFromCart={removeFromCart} />} />
         <Route path="/category/:categoryName" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
-        <Route path="/checkout" element={<CheckoutForm cart={cart} changeView={changeView} updateFormData={updateFormData} />} />
+        <Route path="/FinalData" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
+        <Route path="/checkout" element={<CheckoutForm cart={cart} changeView={changeView} updateFormData={updateFormData} clearCart={clearCart} />} />
         <Route path="/confirmation" element={<ConfirmationView cart={cart} orderData={formData} changeView={changeView} clearCart={clearCart} />} />
 
       </Routes>
@@ -105,7 +108,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
   return (
     <div className="container bg-light">
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h1>Browse Products</h1>
+        <h1>Tech TreauserTrove</h1>
         <div className="search-bar">
           <input
             type="text"
@@ -185,8 +188,13 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
       </div>
       <div className="container marketing">
         <div className="row py-4">
+          <Link to="/FinalData">
+            <button className="btn btn-primary">
+              View ALL Proudcts
+            </button>
+          </Link>
           <div className="col-lg-6 col-12">
-          <img
+            <img
               src="./images/GPU2.png"
               className="bd-placeholder-img rounded-circle"
               width="140"
@@ -206,7 +214,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
             </Link></p>
           </div>
           <div className="col-lg-6 col-12">
-          <img
+            <img
               src="./images/RAM3.png"
               className="bd-placeholder-img rounded-circle"
               width="140"
@@ -215,7 +223,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               aria-label="Placeholder"
               preserveAspectRatio="xMidYMid slice"
               focusable="false"
-              alt="A description of the image" 
+              alt="A description of the image"
             />
             <h2 className="fw-normal">Heading</h2>
             <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
@@ -248,8 +256,8 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
             </Link></p>
           </div>
           <div className="col-lg-6 col-12 py-4">
-          <img
-              src="./images/Mouse3.png" 
+            <img
+              src="./images/Mouse3.png"
               className="bd-placeholder-img rounded-circle"
               width="140"
               height="140"
@@ -274,9 +282,13 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
 }
 
 function CategoryView({ addToCart, removeFromCart, changeView, cart, cartLength }) {
+  const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const { categoryName } = useParams();
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+
 
   useEffect(() => {
     const query = categoryName ? `?category=${encodeURIComponent(categoryName)}` : '';
@@ -288,36 +300,71 @@ function CategoryView({ addToCart, removeFromCart, changeView, cart, cartLength 
           ...product,
           image: product.image.startsWith('./images/')
             ? `${serverUrl}${product.image.replace('./images/', '/images/')}`
-            : `${serverUrl}/images/${product.image}`
+            : `${serverUrl}/images/${product.image}`,
+          keywords: product.keywords
         }));
         setProducts(categoryProducts);
       })
       .catch((error) => console.error('Fetch error:', error));
   }, [categoryName]);
 
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
+  };
+
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm) ||
+    (product.keywords && product.keywords.some(keyword => keyword.toLowerCase().includes(searchTerm)))
+  );
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setPopupMessage(`${product.title} added to cart!`);
+    setShowPopup(true);
+    // Set a timeout to hide the popup after 3 seconds
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
+  };
+
+
   return (
     <div className="container">
-      <h1>{categoryName} Products</h1>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h1>{categoryName} Products</h1>
+        <div className="search-bar">
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Search products..."
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+        </div>
+        <div ClassName="Buttons">
+          <button onClick={() => navigate('/checkout')} className="btn btn-primary"
+          >
+            Checkout{" "}
+            {cartLength > 0 && (
+              <span className="badge bg-primary ml-2">{cartLength} Items</span>
+            )}
+          </button>
+          <button onClick={() => navigate('/')} className="btn btn-primary">
+            Back to Home
+          </button>
+        </div>
+      </div>
       <div>
-        <button onClick={() => navigate('/checkout')} className="btn btn-primary"
-        >
-          Checkout{" "}
-          {cartLength > 0 && (
-            <span className="badge bg-primary ml-2">{cartLength} Items</span>
-          )}
-        </button>
-        <button onClick={() => navigate('/')} className="btn btn-primary">
-          Back to Browse
-        </button>
+        {showPopup && <Popup message={popupMessage} />}
       </div>
       <div className="row">
-        {products.map((product, index) => (
+        {filteredProducts.map((product, index) => (
           <Product
             key={index}
             title={product.name}
             description={product.description}
             price={product.price}
-            addToCart={addToCart}
+            handleAddToCart={handleAddToCart}
             removeFromCart={removeFromCart}
             imagePath={product.image}
           />
@@ -327,6 +374,25 @@ function CategoryView({ addToCart, removeFromCart, changeView, cart, cartLength 
   );
 }
 
+function Popup({ message }) {
+  useEffect(() => {
+    let toastElement = document.querySelector('.toast');
+    let toast = new Toast(toastElement); // initialize Bootstrap Toast
+    toast.show(); // show the toast
+  }, []); // The empty array ensures the effect runs only once on mount
+
+  return (
+    <div className="popup-notification">
+      <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div className="toast-body">
+          {message}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 
 //Child component of BrowseView which displays the individual products
 //Also receives product details and functions to manage cart operations
@@ -335,13 +401,10 @@ function Product({
   title,
   description,
   price,
-  addToCart,
+  handleAddToCart,
   imagePath,
   removeFromCart,
 }) {
-  const handleAddToCart = () => {
-    addToCart({ title, price, imagePath });
-  };
 
   const handleRemoveFromCart = () => {
     removeFromCart({ title, price, imagePath });
@@ -356,7 +419,7 @@ function Product({
           <p className="card-text">{description}</p>
           <p className="card-text">${price}</p>
           <div className="mt-auto">
-            <button className="btn btn-success" onClick={handleAddToCart}>
+            <button className="btn btn-success" onClick={() => handleAddToCart({ title, price, imagePath })}>
               +
             </button>
             <button className="btn btn-danger ml-2" onClick={handleRemoveFromCart}>
@@ -372,7 +435,7 @@ function Product({
 //CheckoutForm houses the cart and form to check out
 //Displays the items, quantites, and price of the products along with the total price
 //Maintians it's own error states to ensure the user inputs the correct information on the checkout form
-function CheckoutForm({ changeView, cart, updateFormData }) {
+function CheckoutForm({ changeView, cart, updateFormData, clearCart }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
@@ -470,6 +533,9 @@ function CheckoutForm({ changeView, cart, updateFormData }) {
       <div className="row mb-3">
         <button onClick={() => navigate(-1)} className="btn btn-primary">
           Return
+        </button>
+        <button onClick={() => { clearCart(); }} className="btn btn-danger">
+          Clear Cart
         </button>
       </div>
       <div className="row">
