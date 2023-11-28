@@ -205,8 +205,8 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               focusable="false"
               alt="A description of the image"
             />
-            <h2 className="fw-normal">Heading</h2>
-            <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+            <h2 className="fw-normal">Graphic Cards</h2>
+            <p>View our selection of the best graphics cards on the market</p>
             <p><Link to="/category/GPU">
               <button className="btn btn-primary">
                 View GPUs
@@ -225,8 +225,8 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               focusable="false"
               alt="A description of the image"
             />
-            <h2 className="fw-normal">Heading</h2>
-            <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
+            <h2 className="fw-normal">RAM</h2>
+            <p>View our listings for the fastest RAM money can buy</p>
             <p>
               <Link to="/category/RAM">
                 <button className="btn btn-primary">
@@ -247,8 +247,8 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               focusable="false"
               alt="A description of the image"
             />
-            <h2 className="fw-normal">Heading</h2>
-            <p>And lastly this, the third column of representative placeholder content.</p>
+            <h2 className="fw-normal">CPUs</h2>
+            <p>With our wide range of CPUs you're bound to find one that fits your needs</p>
             <p><Link to="/category/CPU">
               <button className="btn btn-primary">
                 View CPUs
@@ -267,8 +267,8 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               focusable="false"
               alt="A description of the image"
             />
-            <h2 className="fw-normal">Heading</h2>
-            <p>And lastly this, the third column of representative placeholder content.</p>
+            <h2 className="fw-normal">Computer Accesories</h2>
+            <p>Get ahead of the competition in any game with our utlra responsive keyboards and mice</p>
             <p><Link to="/category/Accessories">
               <button className="btn btn-primary">
                 View Computer Accesories
