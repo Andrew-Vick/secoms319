@@ -105,8 +105,14 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
     product.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const viewProduct = (product) => {
+    navigate('/category', { state: { singleProduct: product } });
+  };
+
+
   return (
     <div className="container bg-light">
+      <header>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h1>Tech TreauserTrove</h1>
         <div className="search-bar">
@@ -128,6 +134,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
           </button>
         </div>
       </div>
+      </header>
       <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-indicators">
           <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
@@ -142,7 +149,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <div className="carousel-caption text-start">
                 <h1>Quantum X1</h1>
                 <p>The most robust GPU on the market. With an impressive speed of 100 TFLOPS nothing on the market today compares to this beast!</p>
-                <p><a className="btn btn-lg btn-primary" href="#">View</a></p>
+                <p><button className="btn btn-lg btn-primary" onClick={() => viewProduct()}>View</button></p>
               </div>
             </div>
           </div>
@@ -281,7 +288,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
   );
 }
 
-function CategoryView({ addToCart, removeFromCart, changeView, cart, cartLength }) {
+function CategoryView({ addToCart, removeFromCart, cartLength, singleProduct }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const { categoryName } = useParams();
@@ -291,7 +298,12 @@ function CategoryView({ addToCart, removeFromCart, changeView, cart, cartLength 
 
 
   useEffect(() => {
-    const query = categoryName ? `?category=${encodeURIComponent(categoryName)}` : '';
+    let query;
+    if (isSingleProductView) {
+      query = categoryName ? `?category=${encodeURIComponent(categoryName)}` : '';
+    } else {
+      query = categoryName ? `?category=${encodeURIComponent(categoryName)}` : '';
+    }
     fetch(`/FinalData${query}`)
       .then((response) => response.ok ? response.json() : Promise.reject('Network response was not ok.'))
       .then((data) => {

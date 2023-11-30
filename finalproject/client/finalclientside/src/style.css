@@ -9,9 +9,91 @@
   }
   
   .toast {
-    background-color: green; /* Set the background color to green */
-    color: white; /* Set the text color to white for better contrast */
-    opacity: 1; /* Make it non-opaque */
-    border-radius: 0; /* Optional: if you want to remove rounded corners */
-    margin-top: 10px; /* Give some space from the top */
+    background-color: green;
+    color: white; 
+    opacity: 1; 
+    border-radius: 0; 
+    margin-top: 10px;
   }
+
+  /* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+header {
+  background: #007bff;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 22px;
+}
+
+/* Navigation Bar Styles */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #333;
+  color: white;
+  padding: 10px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0 15px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.card-img-top {
+  height: 200px; /* Adjust as needed */
+  object-fit: cover;
+}
+
+/* Form Styles */
+form .form-control, form .form-select {
+  border-radius: 0;
+}
+
+form .btn {
+  background: #007bff;
+  color: white;
+  border-radius: 0;
+}
+
+form .btn:hover {
+  background: #0056b3;
+}
+
+/* Footer Styles */
+footer {
+  background: #333;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: 40px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .carousel-inner img {
+    height: 300px;
+  }
+}
