@@ -49,6 +49,7 @@ function App() {
       <Routes>
         <Route path="/" element={<BrowseView addToCart={addToCart} cartLength={cart.length} removeFromCart={removeFromCart} />} />
         <Route path="/category/:categoryName" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
+        <Route path="/name/:name" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
         <Route path="/FinalData" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
         <Route path="/checkout" element={<CheckoutForm cart={cart} changeView={changeView} updateFormData={updateFormData} clearCart={clearCart} />} />
         <Route path="/confirmation" element={<ConfirmationView cart={cart} orderData={formData} changeView={changeView} clearCart={clearCart} />} />
@@ -149,7 +150,11 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <div className="carousel-caption text-start">
                 <h1>Quantum X1</h1>
                 <p>The most robust GPU on the market. With an impressive speed of 100 TFLOPS nothing on the market today compares to this beast!</p>
-                <p><button className="btn btn-lg btn-primary" onClick={() => viewProduct()}>View</button></p>
+                <p><Link to={`/name/Quantum X1`}>
+              <button className="btn btn-primary">
+                View
+              </button>
+            </Link></p>
               </div>
             </div>
           </div>
@@ -288,19 +293,23 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
   );
 }
 
-function CategoryView({ addToCart, removeFromCart, cartLength, singleProduct }) {
+function CategoryView({ addToCart, removeFromCart, cartLength }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [products, setProducts] = useState([]);
   const { categoryName } = useParams();
+  const { name } = useParams();
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const [isSingleProductView, setIsSingleProductView] = useState(false);
+
 
 
   useEffect(() => {
     let query;
-    if (isSingleProductView) {
-      query = categoryName ? `?category=${encodeURIComponent(categoryName)}` : '';
+    if (name) {
+      let productName = decodeURIComponent(name);
+      query = name ? `?name=${encodeURIComponent(productName)}` : '';
     } else {
       query = categoryName ? `?category=${encodeURIComponent(categoryName)}` : '';
     }
@@ -318,7 +327,9 @@ function CategoryView({ addToCart, removeFromCart, cartLength, singleProduct }) 
         setProducts(categoryProducts);
       })
       .catch((error) => console.error('Fetch error:', error));
-  }, [categoryName]);
+
+      setIsSingleProductView(!!name);
+  }, [categoryName, name]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
@@ -370,7 +381,10 @@ function CategoryView({ addToCart, removeFromCart, cartLength, singleProduct }) 
         {showPopup && <Popup message={popupMessage} />}
       </div>
       <div className="row">
-        {filteredProducts.map((product, index) => (
+      {isSingleProductView && products.length > 0 ? (
+        <SingleProductView product={products[0]} />
+      ) : (
+        filteredProducts.map((product, index) => (
           <Product
             key={index}
             title={product.name}
@@ -380,8 +394,40 @@ function CategoryView({ addToCart, removeFromCart, cartLength, singleProduct }) 
             removeFromCart={removeFromCart}
             imagePath={product.image}
           />
-        ))}
+        ))
+        )}
       </div>
+    </div>
+  );
+}
+
+function SingleProductView({ product, addToCart, removeFromCart, cartLength }) {
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+    setPopupMessage(`${product.title} added to cart!`);
+    setShowPopup(true);
+    // Set a timeout to hide the popup after 3 seconds
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 3000);
+  };
+
+  return (
+    <div className="conatiner">
+    <div>
+        {showPopup && <Popup message={popupMessage} />}
+    </div>
+    <div>
+      <h1>{product.name}</h1>
+      <img src={product.image} alt={product.name} style={{ width: '100%', maxWidth: '500px' }} />
+      <p>{product.description}</p>
+      <p>{product.price}</p>
+      <p>{handleAddToCart}</p>
+      {/* Add more product details as needed */}
+    </div>
     </div>
   );
 }

@@ -62,10 +62,7 @@ nav a:hover {
   transform: scale(1.03);
 }
 
-.card-img-top {
-  height: 200px; /* Adjust as needed */
-  object-fit: cover;
-}
+
 
 /* Form Styles */
 form .form-control, form .form-select {

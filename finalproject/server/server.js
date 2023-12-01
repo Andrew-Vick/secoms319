@@ -37,8 +37,13 @@ app.use('/images', express.static(path.join(__dirname, '..', 'images')));
 app.get("/FinalData", async (req, res) => {
     try {
         const collection = db.collection("FinalData");
-        const { category } = req.query;
-        let query = category ? { category: category } : {};
+        const { category, name } = req.query;
+        let query = {};
+        if (category) {
+            query.category = category;
+        }else if (name) {
+            query.name = name;
+        }
         const products = await collection.find(query).toArray();
         res.status(200).json(products);
     } catch (err) {
