@@ -96,45 +96,21 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
       });
   }, []);
 
-
-
-  const handleSearch = (event) => {
-    setSearchTerm(event.target.value.toLowerCase());
-  };
-
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const viewProduct = (product) => {
-    navigate('/category', { state: { singleProduct: product } });
-  };
-
-
   return (
-    <div className="container bg-light">
+    <div className="container">
       <header>
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h1>Tech TreauserTrove</h1>
-        <div className="search-bar">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h1>Tech TreauserTrove</h1>
+          <div>
+            <button onClick={() => navigate('/checkout')} className="btn btn-primary"
+            >
+              Checkout{" "}
+              {cartLength > 0 && (
+                <span className="badge bg-primary ml-2" id="CartNum">{cartLength} Items</span>
+              )}
+            </button>
+          </div>
         </div>
-        <div>
-          <button onClick={() => navigate('/checkout')} className="btn btn-primary"
-          >
-            Checkout{" "}
-            {cartLength > 0 && (
-              <span className="badge bg-primary ml-2">{cartLength} Items</span>
-            )}
-          </button>
-        </div>
-      </div>
       </header>
       <div id="myCarousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-indicators">
@@ -145,48 +121,48 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
         </div>
         <div className="carousel-inner py-4">
           <div className="carousel-item active">
-            <img src="./images/GPU1.png" className="d-block w-100" alt="First slide" />
-            <div className="container">
-              <div className="carousel-caption text-start">
-                <h1>Quantum X1</h1>
-                <p>The most robust GPU on the market. With an impressive speed of 100 TFLOPS nothing on the market today compares to this beast!</p>
-                <p><Link to={`/name/Quantum X1`}>
-              <button className="btn btn-primary">
-                View
-              </button>
-            </Link></p>
+            <Link to={'name/Quantum X1'}>
+              <img src="./images/GPU1.png" className="d-block w-100" alt="First slide" />
+              <div className="container">
+                <div className="carousel-caption text-start">
+                  <h1>Quantum X1</h1>
+                  <p>The most robust GPU on the market. With an impressive speed of 100 TFLOPS nothing on the market today compares to this beast!</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
           <div className="carousel-item">
-            <img src="./images/RAM1.png" className="d-block w-100" alt="First slide" />
-            <div className="container">
-              <div className="carousel-caption text-start">
-                <h1>ThunderBolt 16GB DDR5</h1>
-                <p>Some representative placeholder content for the first slide.</p>
-                <p><a className="btn btn-lg btn-primary" href="#">View</a></p>
+            <Link to={'name/ThunderBolt 16GB DDR5'}>
+              <img src="./images/RAM1.png" className="d-block w-100" alt="First slide" />
+              <div className="container">
+                <div className="carousel-caption text-start">
+                  <h1>ThunderBolt 16GB DDR5</h1>
+                  <p>Some representative placeholder content for the first slide.</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
           <div className="carousel-item">
-            <img src="./images/CPU3.png" className="d-block w-100" alt="First slide" />
-            <div className="container">
-              <div className="carousel-caption text-start">
-                <h1>Ryzer 7</h1>
-                <p>Some representative placeholder content for the first slide.</p>
-                <p><a className="btn btn-lg btn-primary" href="#">View</a></p>
+            <Link to={'name/Ryzer 7'}>
+              <img src="./images/CPU3.png" className="d-block w-100" alt="First slide" />
+              <div className="container">
+                <div className="carousel-caption text-start">
+                  <h1>Ryzer 7</h1>
+                  <p>Some representative placeholder content for the first slide.</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
           <div className="carousel-item">
-            <img src="./images/keyboard1.png" className="d-block w-100" alt="First slide" />
-            <div className="container">
-              <div className="carousel-caption text-start">
-                <h1>Tactile Pro Keyboard</h1>
-                <p>Some representative placeholder content for the first slide.</p>
-                <p><a className="btn btn-lg btn-primary" href="#">View</a></p>
+            <Link to={'name/Tactile Pro Keyboard'}>
+              <img src="./images/keyboard1.png" className="d-block w-100" alt="First slide" />
+              <div className="container">
+                <div className="carousel-caption text-start">
+                  <h1>Tactile Pro Keyboard</h1>
+                  <p>Some representative placeholder content for the first slide.</p>
+                </div>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
@@ -199,97 +175,96 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
         </button>
       </div>
       <div className="container marketing">
-        <div className="row py-4">
-          <Link to="/FinalData">
-            <button className="btn btn-primary">
-              View ALL Proudcts
-            </button>
-          </Link>
-          <div className="col-lg-6 col-12">
-            <img
-              src="./images/GPU2.png"
-              className="bd-placeholder-img rounded-circle"
-              width="140"
-              height="140"
-              role="img"
-              aria-label="Placeholder"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-              alt="A description of the image"
-            />
-            <h2 className="fw-normal">Graphic Cards</h2>
-            <p>View our selection of the best graphics cards on the market</p>
-            <p><Link to="/category/GPU">
-              <button className="btn btn-primary">
-                View GPUs
-              </button>
-            </Link></p>
+        <div className="col-lg-6 col-12" id="CategoryButtons">
+          <div className="card">
+            <Link to="/FinalData">
+              <h2>View All Products</h2>
+            </Link>
           </div>
-          <div className="col-lg-6 col-12">
-            <img
-              src="./images/RAM3.png"
-              className="bd-placeholder-img rounded-circle"
-              width="140"
-              height="140"
-              role="img"
-              aria-label="Placeholder"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-              alt="A description of the image"
-            />
-            <h2 className="fw-normal">RAM</h2>
-            <p>View our listings for the fastest RAM money can buy</p>
-            <p>
-              <Link to="/category/RAM">
-                <button className="btn btn-primary">
-                  View RAM
-                </button>
+        </div>
+        <div className="row py-5">
+          <div className="col-lg-6 col-12" id="CategoryButtons">
+            <div className="card">
+              <Link to="/category/GPU">
+                <img
+                  src="./images/GPU2.png"
+                  className="bd-placeholder-img rounded-circle"
+                  width="140"
+                  height="140"
+                  role="img"
+                  aria-label="Placeholder"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  alt="A description of the image"
+                />
+                <h2 className="fw-normal">Graphic Cards</h2>
+                <p>View our selection of the best graphics cards on the market</p>
               </Link>
-            </p>
+            </div>
           </div>
-          <div className="col-lg-6 col-12 py-4">
-            <img
-              src="./images/CPU1.png"
-              className="bd-placeholder-img rounded-circle"
-              width="140"
-              height="140"
-              role="img"
-              aria-label="Placeholder"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-              alt="A description of the image"
-            />
-            <h2 className="fw-normal">CPUs</h2>
-            <p>With our wide range of CPUs you're bound to find one that fits your needs</p>
-            <p><Link to="/category/CPU">
-              <button className="btn btn-primary">
-                View CPUs
-              </button>
-            </Link></p>
+          <div className="col-lg-6 col-12" id="CategoryButtons">
+            <div className="card">
+              <Link to="/category/RAM">
+                <img
+                  src="./images/RAM3.png"
+                  className="bd-placeholder-img rounded-circle"
+                  width="140"
+                  height="140"
+                  role="img"
+                  aria-label="Placeholder"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  alt="A description of the image"
+                />
+                <h2 className="fw-normal">RAM</h2>
+                <p>View our listings for the fastest RAM money can buy</p>
+              </Link>
+            </div>
           </div>
-          <div className="col-lg-6 col-12 py-4">
-            <img
-              src="./images/Mouse3.png"
-              className="bd-placeholder-img rounded-circle"
-              width="140"
-              height="140"
-              role="img"
-              aria-label="Placeholder"
-              preserveAspectRatio="xMidYMid slice"
-              focusable="false"
-              alt="A description of the image"
-            />
-            <h2 className="fw-normal">Computer Accesories</h2>
-            <p>Get ahead of the competition in any game with our utlra responsive keyboards and mice</p>
-            <p><Link to="/category/Accessories">
-              <button className="btn btn-primary">
-                View Computer Accesories
-              </button>
-            </Link></p>
+        </div>
+        <div className="row py-4">
+          <div className="col-lg-6 col-12" id="CategoryButtons">
+            <div className="card">
+              <Link to="/category/CPU">
+                <img
+                  src="./images/CPU1.png"
+                  className="bd-placeholder-img rounded-circle"
+                  width="140"
+                  height="140"
+                  role="img"
+                  aria-label="Placeholder"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  alt="A description of the image"
+                />
+                <h2 className="fw-normal">CPUs</h2>
+                <p>With our wide range of CPUs you're bound to find one that fits your needs</p>
+              </Link>
+            </div>
+          </div>
+          <div className="col-lg-6 col-12" id="CategoryButtons">
+            <div className="card">
+              <Link to="/category/Accessories">
+                <img
+                  src="./images/Mouse3.png"
+                  className="bd-placeholder-img rounded-circle"
+                  width="140"
+                  height="140"
+                  role="img"
+                  aria-label="Placeholder"
+                  preserveAspectRatio="xMidYMid slice"
+                  focusable="false"
+                  alt="A description of the image"
+                />
+                <h2 className="fw-normal">Computer Accesories</h2>
+                <p>Get ahead of the competition in any game with our utlra responsive keyboards and mice</p>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 }
 
@@ -328,7 +303,7 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
       })
       .catch((error) => console.error('Fetch error:', error));
 
-      setIsSingleProductView(!!name);
+    setIsSingleProductView(!!name);
   }, [categoryName, name]);
 
   const handleSearch = (event) => {
@@ -353,48 +328,56 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
 
   return (
     <div className="container">
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h1>{categoryName} Products</h1>
-        <div className="search-bar">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
+      <header>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h1>{categoryName} Products</h1>
+          <div className="search-bar">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={handleSearch}
+            />
+          </div>
+          <div ClassName="Buttons">
+            <button onClick={() => navigate('/checkout')} className="btn btn-primary"
+            >
+              Checkout{" "}
+              {cartLength > 0 && (
+                <span className="badge bg-primary ml-2">{cartLength} Items</span>
+              )}
+            </button>
+            <button onClick={() => navigate('/')} className="btn btn-primary">
+              Back to Home
+            </button>
+          </div>
         </div>
-        <div ClassName="Buttons">
-          <button onClick={() => navigate('/checkout')} className="btn btn-primary"
-          >
-            Checkout{" "}
-            {cartLength > 0 && (
-              <span className="badge bg-primary ml-2">{cartLength} Items</span>
-            )}
-          </button>
-          <button onClick={() => navigate('/')} className="btn btn-primary">
-            Back to Home
-          </button>
-        </div>
-      </div>
+      </header>
       <div>
         {showPopup && <Popup message={popupMessage} />}
       </div>
       <div className="row">
-      {isSingleProductView && products.length > 0 ? (
-        <SingleProductView product={products[0]} />
-      ) : (
-        filteredProducts.map((product, index) => (
-          <Product
-            key={index}
-            title={product.name}
-            description={product.description}
-            price={product.price}
-            handleAddToCart={handleAddToCart}
+        {isSingleProductView && products.length > 0 ? (
+          <SingleProductView product={products[1]}
+            title={products[0].title}
+            description={products[0].description}
+            addToCart={handleAddToCart}
             removeFromCart={removeFromCart}
-            imagePath={product.image}
-          />
-        ))
+            price={products[0].price}
+            imagePath={products[0].image} />
+        ) : (
+          filteredProducts.map((product, index) => (
+            <Product
+              key={index}
+              title={product.name}
+              description={product.description}
+              price={product.price}
+              handleAddToCart={handleAddToCart}
+              removeFromCart={removeFromCart}
+              imagePath={product.image}
+            />
+          ))
         )}
       </div>
     </div>
@@ -405,29 +388,46 @@ function SingleProductView({ product, addToCart, removeFromCart, cartLength }) {
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
 
-  const handleAddToCart = (product) => {
+  const handleAddClick = () => {
     addToCart(product);
-    setPopupMessage(`${product.title} added to cart!`);
+    setPopupMessage(`${product.name} added to cart!`);
     setShowPopup(true);
-    // Set a timeout to hide the popup after 3 seconds
-    setTimeout(() => {
-      setShowPopup(false);
-    }, 3000);
+    setTimeout(() => setShowPopup(false), 3000);
   };
 
+  const handleRemoveClick = () => {
+    removeFromCart(product);
+    setPopupMessage(`${product.name} removed from cart!`);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000);
+  };
+
+
   return (
-    <div className="conatiner">
-    <div>
+    <div className="productView">
+      <div>
         {showPopup && <Popup message={popupMessage} />}
-    </div>
-    <div>
-      <h1>{product.name}</h1>
-      <img src={product.image} alt={product.name} style={{ width: '100%', maxWidth: '500px' }} />
-      <p>{product.description}</p>
-      <p>{product.price}</p>
-      <p>{handleAddToCart}</p>
-      {/* Add more product details as needed */}
-    </div>
+      </div>
+      <div>
+        <div className="ImageContainer">
+          <img src={product.image} alt={product.name} style={{ width: '100%', maxWidth: '1000px' }} />
+
+        </div>
+        <div id="pvcontent">
+          <h1>{product.name}</h1>
+          <h5>{product.company}</h5>
+          <p>{product.description}</p>
+          <p>Price: ${product.price}</p>
+          <div className="cart-buttons">
+            <button onClick={handleAddClick} className="btn btn-success">
+              Add to Cart
+            </button>
+            <button onClick={handleRemoveClick} className="btn btn-danger">
+              Remove from Cart
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -435,9 +435,9 @@ function SingleProductView({ product, addToCart, removeFromCart, cartLength }) {
 function Popup({ message }) {
   useEffect(() => {
     let toastElement = document.querySelector('.toast');
-    let toast = new Toast(toastElement); // initialize Bootstrap Toast
-    toast.show(); // show the toast
-  }, []); // The empty array ensures the effect runs only once on mount
+    let toast = new Toast(toastElement);
+    toast.show();
+  }, []);
 
   return (
     <div className="popup-notification">
@@ -588,14 +588,20 @@ function CheckoutForm({ changeView, cart, updateFormData, clearCart }) {
 
   return (
     <div className="container">
-      <div className="row mb-3">
-        <button onClick={() => navigate(-1)} className="btn btn-primary">
-          Return
-        </button>
-        <button onClick={() => { clearCart(); }} className="btn btn-danger">
-          Clear Cart
-        </button>
-      </div>
+      <header>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h2>Your Cart</h2>
+          <div className="Buttons">
+            <button onClick={() => navigate(-1)} className="btn btn-primary">
+              Return
+            </button>
+            <button onClick={() => { clearCart(); }} className="btn btn-danger">
+              Clear Cart
+            </button>
+          </div>
+        </div>
+      </header>
+
       <div className="row">
         <div className="col-md-5">
           <h4>Item(s)</h4>

@@ -17,25 +17,10 @@
   }
 
   /* General Styles */
-body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
-  color: #333;
-}
-
 .container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
-
-/* Header Styles */
-header {
-  background: #007bff;
-  color: #fff;
-  padding: 10px 0;
-  text-align: center;
-  font-size: 22px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  padding-top: 20px;
 }
 
 /* Navigation Bar Styles */
@@ -59,9 +44,27 @@ nav a:hover {
 }
 
 .card:hover {
+  border-color: lightgray;
+  background-color: white;
+  border-radius: 1rem;
+  border-width: 2px;
   transform: scale(1.03);
 }
 
+.card {
+  background-color: lightgrey;
+  border-color: white;
+  border-radius: 1rem;
+  border-width: 2px;
+  padding: 1rem;
+  justify-content: center;
+}
+
+
+#CategoryButtons a, #CategoryButtons a:visited, #CategoryButtons a:hover, #CategoryButtons a:active {
+  color: black; /* Change to your desired color */
+  text-decoration: none;
+}
 
 
 /* Form Styles */
@@ -88,9 +91,76 @@ footer {
   margin-top: 40px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .carousel-inner img {
-    height: 300px;
+/* Header Styles */
+header{
+  padding-top: 50px;
+  margin: 0%; 
+}
+
+/* Carousel base class */
+.carousel {
+  margin-bottom: 4rem;
+}
+
+.carousel-caption {
+  bottom: 3rem;
+  z-index: 10;
+}
+
+.carousel-item {
+  height: 50rem;
+}
+
+@media (min-width: 40em) {
+  .carousel-caption p {
+    margin-bottom: 1.25rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .featurette-heading {
+    font-size: 50px;
   }
 }
+
+@media (min-width: 62em) {
+  .featurette-heading {
+    margin-top: 7rem;
+  }
+}
+
+/* Marketing Containers below Carousel */
+.marketing .col-lg-4 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.marketing .col-lg-4 p {
+  margin-right: .75rem;
+  margin-left: .75rem;
+}
+
+img{
+  border-radius: 1rem;
+}
+
+.productView {
+  font-family: 'Arial', sans-serif;
+  text-align: left;
+  padding: 5px;
+}
+
+.ImageContainer {
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  padding-bottom: 20px;
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+#pvcontent{
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  padding-top: 20px;
+}
+
