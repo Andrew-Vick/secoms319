@@ -137,7 +137,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <div className="container">
                 <div className="carousel-caption text-start">
                   <h1>ThunderBolt 16GB DDR5</h1>
-                  <p>Some representative placeholder content for the first slide.</p>
+                  <p>Unleash your system's true potential with RamifyTech's ThunderBolt 16GB DDR5. High-speed, low latency, and designed to overclock, it ensures a seamless performance.</p>
                 </div>
               </div>
             </Link>
@@ -148,7 +148,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <div className="container">
                 <div className="carousel-caption text-start">
                   <h1>Ryzer 7</h1>
-                  <p>Some representative placeholder content for the first slide.</p>
+                  <p>InnovaTech's Ryzer 7 is a gamer’s delight, featuring enhanced VR capabilities, a thoughtful thermal design, and impressive clock speeds.</p>
                 </div>
               </div>
             </Link>
@@ -159,7 +159,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
               <div className="container">
                 <div className="carousel-caption text-start">
                   <h1>Tactile Pro Keyboard</h1>
-                  <p>Some representative placeholder content for the first slide.</p>
+                  <p>Experience superior typing with Periphera's Tactile Pro Keyboard. Equipped with RGB lighting, it offers an ergonomic design and durable build quality.</p>
                 </div>
               </div>
             </Link>
@@ -176,7 +176,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
       </div>
       <div className="container marketing">
         <div className="col-lg-6 col-12" id="CategoryButtons">
-          <div className="card">
+          <div className="Bcard">
             <Link to="/FinalData">
               <h2>View All Products</h2>
             </Link>
@@ -184,7 +184,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
         </div>
         <div className="row py-5">
           <div className="col-lg-6 col-12" id="CategoryButtons">
-            <div className="card">
+            <div className="Bcard">
               <Link to="/category/GPU">
                 <img
                   src="./images/GPU2.png"
@@ -203,7 +203,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
             </div>
           </div>
           <div className="col-lg-6 col-12" id="CategoryButtons">
-            <div className="card">
+            <div className="Bcard">
               <Link to="/category/RAM">
                 <img
                   src="./images/RAM3.png"
@@ -224,7 +224,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
         </div>
         <div className="row py-4">
           <div className="col-lg-6 col-12" id="CategoryButtons">
-            <div className="card">
+            <div className="Bcard">
               <Link to="/category/CPU">
                 <img
                   src="./images/CPU1.png"
@@ -243,7 +243,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
             </div>
           </div>
           <div className="col-lg-6 col-12" id="CategoryButtons">
-            <div className="card">
+            <div className="Bcard">
               <Link to="/category/Accessories">
                 <img
                   src="./images/Mouse3.png"
@@ -359,13 +359,11 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
       </div>
       <div className="row">
         {isSingleProductView && products.length > 0 ? (
-          <SingleProductView product={products[1]}
+          <SingleProductView product={products[0]}
             title={products[0].title}
             description={products[0].description}
-            addToCart={handleAddToCart}
-            removeFromCart={removeFromCart}
             price={products[0].price}
-            imagePath={products[0].image} />
+          />
         ) : (
           filteredProducts.map((product, index) => (
             <Product
@@ -385,29 +383,9 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
 }
 
 function SingleProductView({ product, addToCart, removeFromCart, cartLength }) {
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState("");
-
-  const handleAddClick = () => {
-    addToCart(product);
-    setPopupMessage(`${product.name} added to cart!`);
-    setShowPopup(true);
-    setTimeout(() => setShowPopup(false), 3000);
-  };
-
-  const handleRemoveClick = () => {
-    removeFromCart(product);
-    setPopupMessage(`${product.name} removed from cart!`);
-    setShowPopup(true);
-    setTimeout(() => setShowPopup(false), 3000);
-  };
-
 
   return (
     <div className="productView">
-      <div>
-        {showPopup && <Popup message={popupMessage} />}
-      </div>
       <div>
         <div className="ImageContainer">
           <img src={product.image} alt={product.name} style={{ width: '100%', maxWidth: '1000px' }} />
@@ -418,14 +396,7 @@ function SingleProductView({ product, addToCart, removeFromCart, cartLength }) {
           <h5>{product.company}</h5>
           <p>{product.description}</p>
           <p>Price: ${product.price}</p>
-          <div className="cart-buttons">
-            <button onClick={handleAddClick} className="btn btn-success">
-              Add to Cart
-            </button>
-            <button onClick={handleRemoveClick} className="btn btn-danger">
-              Remove from Cart
-            </button>
-          </div>
+          {/* Will need to get add to cart feature fully working by final due date */}
         </div>
       </div>
     </div>
@@ -587,179 +558,181 @@ function CheckoutForm({ changeView, cart, updateFormData, clearCart }) {
   }
 
   return (
-    <div className="container">
-      <header>
-        <div className="d-flex justify-content-between align-items-center mb-3">
-          <h2>Your Cart</h2>
-          <div className="Buttons">
-            <button onClick={() => navigate(-1)} className="btn btn-primary">
-              Return
-            </button>
-            <button onClick={() => { clearCart(); }} className="btn btn-danger">
-              Clear Cart
-            </button>
+    <div className="head" style={{ color: 'white' }}>
+      <div className="container">
+        <header>
+          <div className="d-flex justify-content-between align-items-center mb-3">
+            <h2>Your Cart</h2>
+            <div className="Buttons">
+              <button onClick={() => navigate(-1)} className="btn btn-primary">
+                Return
+              </button>
+              <button onClick={() => { clearCart(); }} className="btn btn-danger">
+                Clear Cart
+              </button>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <div className="row">
-        <div className="col-md-5">
-          <h4>Item(s)</h4>
-        </div>
-        <div className="col-md-3">
-          <h4>Quantity</h4>
-        </div>
-        <div className="col-md-4">
-          <h4>Price</h4>
-        </div>
-        <hr />
-      </div>
-      {Object.keys(quantities).map((title, index) => (
-        <div className="row" key={index}>
-          <div className="col-md-5 d-flex align-items-center">
-            <img
-              style={{ height: 100, marginRight: 10, marginBottom: 10 }}
-              src={cart.find((item) => item.title === title).imagePath}
-              alt={title}
-            />
-            <span>{title}</span>
+        <div className="row" style={{ color: 'white' }}>
+          <div className="col-md-5">
+            <h4>Item(s)</h4>
           </div>
-          <div className="col-md-3 d-flex align-items-center">
-            <span>{quantities[title] + "  x"}</span>
+          <div className="col-md-3">
+            <h4>Quantity</h4>
           </div>
-          <div className="col-md-4 d-flex align-items-center">
-            <span>
-              ${cart.find((item) => item.title === title).price.toFixed(2)}
-            </span>
+          <div className="col-md-4">
+            <h4>Price</h4>
           </div>
           <hr />
         </div>
-      ))}
+        {Object.keys(quantities).map((title, index) => (
+          <div className="row" key={index} style={{ color: 'white' }}>
+            <div className="col-md-5 d-flex align-items-center">
+              <img
+                style={{ height: 100, marginRight: 10, marginBottom: 10 }}
+                src={cart.find((item) => item.title === title).imagePath}
+                alt={title}
+              />
+              <span>{title}</span>
+            </div>
+            <div className="col-md-3 d-flex align-items-center">
+              <span>{quantities[title] + "  x"}</span>
+            </div>
+            <div className="col-md-4 d-flex align-items-center">
+              <span>
+                ${cart.find((item) => item.title === title).price.toFixed(2)}
+              </span>
+            </div>
+            <hr />
+          </div>
+        ))}
 
-      <div className="row mb-3">
-        <h4> Total Price: ${totalPrice.toFixed(2)}</h4>
-      </div>
-      <hr />
+        <div className="row mb-3">
+          <h4> Total Price: ${totalPrice.toFixed(2)}</h4>
+        </div>
+        <hr />
 
-      <div className="row mb-3">
-        <h4>Payment information</h4>
-        <form className="needs-validation" onSubmit={handleSubmit} noValidate>
-          <div className="mb-3">
-            <label htmlFor="fullName" className="form-label">
-              Full Name
-            </label>
-            <input
-              type="text"
-              className={`form-control ${error.fullName ? "is-invalid" : ""}`}
-              id="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-            />
-            <div className="invalid-feedback">{error.fullName}</div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email
-            </label>
-            <input
-              type="email"
-              className={`form-control ${error.email ? "is-invalid" : ""}`}
-              id="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <div className="invalid-feedback">{error.email}</div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="card" className="form-label">
-              Card
-            </label>
-            <input
-              type="text"
-              className={`form-control ${error.card ? "is-invalid" : ""}`}
-              id="card"
-              value={formData.card}
-              onChange={handleChange}
-              required
-              placeholder="XXXX-XXXX-XXXX-XXXX"
-            />
-            <div className="invalid-feedback">{error.card}</div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="address1" className="form-label">
-              Address
-            </label>
-            <input
-              type="text"
-              className={`form-control ${error.address1 ? "is-invalid" : ""}`}
-              id="address1"
-              value={formData.address1}
-              onChange={handleChange}
-              required
-              placeholder="1234 Main St"
-            />
-            <div className="invalid-feedback">{error.address1}</div>
-          </div>
-          <div className="mb-3">
-            <input
-              type="text"
-              className={`form-control ${error.address2 && formData.address2 ? "is-invalid" : ""}`}
-              id="address2"
-              value={formData.address2}
-              onChange={handleChange}
-
-              placeholder="Apartment, studio, or floor"
-            />
-            <div className="invalid-feedback">{error.address2}</div>
-          </div>
-          <div className="row">
-            <div className="col-md-5 mb-3">
+        <div className="row mb-3">
+          <h4>Payment information</h4>
+          <form className="needs-validation" onSubmit={handleSubmit} noValidate>
+            <div className="mb-3">
+              <label htmlFor="fullName" className="form-label">
+                Full Name
+              </label>
               <input
                 type="text"
-                className={`form-control ${error.city ? "is-invalid" : ""}`}
-                id="city"
-                value={formData.city}
+                className={`form-control ${error.fullName ? "is-invalid" : ""}`}
+                id="fullName"
+                value={formData.fullName}
                 onChange={handleChange}
                 required
-                placeholder="City"
               />
+              <div className="invalid-feedback">{error.fullName}</div>
             </div>
-            <div className="col-md-4 mb-3">
-              <select
-                className={`form-select ${error.state ? "is-invalid" : ""}`}
-                id="state"
-                value={formData.state}
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label">
+                Email
+              </label>
+              <input
+                type="email"
+                className={`form-control ${error.email ? "is-invalid" : ""}`}
+                id="email"
+                value={formData.email}
                 onChange={handleChange}
                 required
-              >
-                <option value="" disabled>
-                  Choose...
-                </option>
-                <option>Iowa</option>
-                <option>Missouri</option>
-                <option>Colorado</option>
-                <option>47 worse states</option>
-              </select>
+              />
+              <div className="invalid-feedback">{error.email}</div>
             </div>
-            <div className="col-md-3 mb-3">
+            <div className="mb-3">
+              <label htmlFor="card" className="form-label">
+                Card
+              </label>
               <input
                 type="text"
-                className={`form-control ${error.zip ? "is-invalid" : ""}`}
-                id="zip"
-                value={formData.zip}
+                className={`form-control ${error.card ? "is-invalid" : ""}`}
+                id="card"
+                value={formData.card}
                 onChange={handleChange}
                 required
-                placeholder="Zip"
+                placeholder="XXXX-XXXX-XXXX-XXXX"
               />
-              <div className="invalid-feedback">{error.zip}</div>
+              <div className="invalid-feedback">{error.card}</div>
             </div>
-          </div>
-          <button type="submit" className="btn btn-primary btn-lg btn-block">
-            Order
-          </button>
-        </form>
+            <div className="mb-3">
+              <label htmlFor="address1" className="form-label">
+                Address
+              </label>
+              <input
+                type="text"
+                className={`form-control ${error.address1 ? "is-invalid" : ""}`}
+                id="address1"
+                value={formData.address1}
+                onChange={handleChange}
+                required
+                placeholder="1234 Main St"
+              />
+              <div className="invalid-feedback">{error.address1}</div>
+            </div>
+            <div className="mb-3">
+              <input
+                type="text"
+                className={`form-control ${error.address2 && formData.address2 ? "is-invalid" : ""}`}
+                id="address2"
+                value={formData.address2}
+                onChange={handleChange}
+
+                placeholder="Apartment, studio, or floor"
+              />
+              <div className="invalid-feedback">{error.address2}</div>
+            </div>
+            <div className="row">
+              <div className="col-md-5 mb-3">
+                <input
+                  type="text"
+                  className={`form-control ${error.city ? "is-invalid" : ""}`}
+                  id="city"
+                  value={formData.city}
+                  onChange={handleChange}
+                  required
+                  placeholder="City"
+                />
+              </div>
+              <div className="col-md-4 mb-3">
+                <select
+                  className={`form-select ${error.state ? "is-invalid" : ""}`}
+                  id="state"
+                  value={formData.state}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="" disabled>
+                    Choose...
+                  </option>
+                  <option>Iowa</option>
+                  <option>Missouri</option>
+                  <option>Colorado</option>
+                  <option>47 worse states</option>
+                </select>
+              </div>
+              <div className="col-md-3 mb-3">
+                <input
+                  type="text"
+                  className={`form-control ${error.zip ? "is-invalid" : ""}`}
+                  id="zip"
+                  value={formData.zip}
+                  onChange={handleChange}
+                  required
+                  placeholder="Zip"
+                />
+                <div className="invalid-feedback">{error.zip}</div>
+              </div>
+            </div>
+            <button type="submit" className="btn btn-primary btn-lg btn-block">
+              Order
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
@@ -796,7 +769,7 @@ function ConfirmationView({ cart, orderData, changeView, clearCart }) {
   const totalPrice = calculateTotalPrice();
 
   return (
-    <div className="container">
+    <div className="container" style={{color: 'white'}}>
       <div className="row">
         <h1 className="text-success">You have made an order!</h1>
         <h2>Order summary</h2>
