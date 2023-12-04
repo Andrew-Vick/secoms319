@@ -1,7 +1,7 @@
 {
     "scripts": {
-        "start": "node server/server.js",
-        "client": "cd client/finalclientside && npm start finalclientside",
+        "start": "node backend/server.js",
+        "client": "cd frontend/finalclientside && npm start finalclientside",
         "dev": "concurrently \"npm run start\" \"npm run client\""
     },
     "devDependencies": {
