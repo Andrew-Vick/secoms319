@@ -53,6 +53,7 @@ function App() {
         <Route path="/FinalData" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
         <Route path="/checkout" element={<CheckoutForm cart={cart} changeView={changeView} updateFormData={updateFormData} clearCart={clearCart} />} />
         <Route path="/confirmation" element={<ConfirmationView cart={cart} orderData={formData} changeView={changeView} clearCart={clearCart} />} />
+        <Route path="/aboutPage" element={<aboutPage/>}/>
 
       </Routes>
     </Router>
@@ -109,6 +110,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
                 <span className="badge bg-primary ml-2" id="CartNum">{cartLength} Items</span>
               )}
             </button>
+            <Link to={'/aboutPage'}>about</Link>
           </div>
         </div>
       </header>
@@ -420,6 +422,77 @@ function Popup({ message }) {
     </div>
   );
 }
+
+function aboutPage() {
+  return (
+    <div className="container">
+      <section className="py-5">
+        <div className="container">
+          <h1 className="fw-light">Authors</h1>
+        </div>
+      </section>
+
+      <section id="Authors">
+        <div className="container">
+          <h1>Andrew Vick</h1>
+          <p id="Author-Info">
+            Hello, I am a third year software engineering student at Iowa State. I am currently learning
+            how to utilize
+            html, css, javascript and JSON to create and design dynamic websites. I hope you have enjoyed our tech related webstore. It was our first take
+            using JSON to dynamically load products based on the users inputs.
+          </p>
+          <p id="Email-Info">
+            <a href="mailto:avick@iastate.edu">avick@iastate.edu</a>
+          </p>
+        </div>
+
+        <div className="container">
+          <h1>Draven</h1>
+          <p id="Author-Info">
+            Hello, I am a senior at Iowa State University majoring in Aerospace Engineering and minoring
+            in Computer Science.
+            I am currently learning how to utilize HTML, CSS, and Javascript to create and design
+            websites.
+          </p>
+          <p id="Email-Info">
+            <a href="mailto:avick@iastate.edu">dravenr@iastate.edu</a>
+          </p>
+        </div>
+
+      </section>
+
+      <section id="Course" className="py-5">
+        <div className="container">
+          <h1 className="fw-light">Course</h1>
+        </div>
+      </section>
+
+      <section>
+        <div className="container">
+          <h1>ComS 319</h1>
+          <h4>Construction of User Interfaces</h4>
+          <p>Instructor: Abraham Aldaco, Ph.D.</p>
+          <p>Date: October, 18th 2023</p>
+        </div>
+      </section>
+
+      <footer>
+        <div>
+          <div className="container-footer">
+            <p>&copy;TechTreasure Trove. All rights reserved.</p>
+            <p>All images were AI generated no copyrights were infringed</p>d
+            <br />
+            <br />
+          </div>
+        </div>
+      </footer>
+    </div>
+
+
+  );
+}
+
+
 
 
 
