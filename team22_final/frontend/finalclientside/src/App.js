@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from 'bootstrap';
-import { debounce } from 'lodash';
 import "./style.css";
 
 
@@ -15,13 +14,10 @@ import "./style.css";
 //changeView, clearCart, add and remove from cart functions are used to manipulate and change these states
 //Depending on the view state different webpages are rendered like browse, cart and confirmation 
 function App() {
-  const [view, setView] = useState("browse");
   const [cart, setCart] = useState([]);
   const [formData, setFormData] = useState(null);
 
-  const changeView = (newView) => {
-    setView(newView);
-  };
+  
 
   const clearCart = () => {
     setCart([]);
@@ -48,12 +44,12 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<BrowseView addToCart={addToCart} cartLength={cart.length} removeFromCart={removeFromCart} />} />
+        <Route path="/" element={<BrowseView cartLength={cart.length} />} />
         <Route path="/category/:categoryName" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
         <Route path="/name/:name" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
         <Route path="/FinalData" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
-        <Route path="/checkout" element={<CheckoutForm cart={cart} changeView={changeView} updateFormData={updateFormData} clearCart={clearCart} />} />
-        <Route path="/confirmation" element={<ConfirmationView cart={cart} orderData={formData} changeView={changeView} clearCart={clearCart} />} />
+        <Route path="/checkout" element={<CheckoutForm cart={cart}  updateFormData={updateFormData} clearCart={clearCart} />} />
+        <Route path="/confirmation" element={<ConfirmationView cart={cart} orderData={formData}  clearCart={clearCart} />} />
         <Route path="/AboutPage" element={<AboutPage cart={cart}/>}/>
 
       </Routes>
@@ -67,36 +63,8 @@ export default App;
 //BrowseView also has it's own states for search terms and product info
 //Based on the states browseView will render the current products in products.json and will filter the users
 //search terms to correlate with current products
-function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [products, setProducts] = useState([]);
+function BrowseView({ cartLength }) {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // Fetch the products from the server
-    fetch('/FinalData')
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      })
-      .then((data) => {
-        const serverUrl = process.env.REACT_APP_API_URL || 'http://localhost:8081';
-        const updatedProducts = data.map(product => {
-          return {
-            ...product,
-            image: product.image.startsWith('./images/')
-              ? `${serverUrl}${product.image.replace('./images/', '/images/')}`
-              : `${serverUrl}/images/${product.image}`
-          };
-        });
-        setProducts(updatedProducts);
-      })
-      .catch((error) => {
-        console.error('Fetch error:', error);
-      });
-  }, []);
 
   return (
     <div className="container">
@@ -290,8 +258,6 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
   const [popupColor, setPopupColor] = useState('');
   const [isSingleProductView, setIsSingleProductView] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-
-  const [popupInfo, setPopupInfo] = useState({ message: '', color: '', key: Date.now() });
 
 
   useEffect(() => {
