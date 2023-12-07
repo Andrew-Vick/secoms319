@@ -877,6 +877,15 @@ function CheckoutForm({ changeView, cart, updateFormData, clearCart }) {
           </form>
         </div>
       </div>
+
+      <footer>
+        <div>
+          <div className="container-footer">
+            <p>&copy;TechTreasure Trove. All rights reserved.</p>
+            <p>All images were AI generated no copyrights were infringed</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
@@ -988,6 +997,15 @@ function ConfirmationView({ cart, orderData, changeView, clearCart }) {
       <button onClick={() => { navigate('/'); clearCart(); }} className="btn btn-primary">
         Back to Browse
       </button>
+
+      <footer>
+        <div>
+          <div className="container-footer">
+            <p>&copy;TechTreasure Trove. All rights reserved.</p>
+            <p>All images were AI generated no copyrights were infringed</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
