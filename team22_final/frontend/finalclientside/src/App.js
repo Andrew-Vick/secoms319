@@ -50,7 +50,7 @@ function App() {
         <Route path="/FinalData" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
         <Route path="/checkout" element={<CheckoutForm cart={cart}  updateFormData={updateFormData} clearCart={clearCart} />} />
         <Route path="/confirmation" element={<ConfirmationView cart={cart} orderData={formData}  clearCart={clearCart} />} />
-        <Route path="/AboutPage" element={<AboutPage cart={cart}/>}/>
+        <Route path="/AboutPage" element={<AboutPage />}/>
 
       </Routes>
     </Router>
@@ -403,7 +403,7 @@ useEffect(() => {
   );
 }
 
-function SingleProductView({ product, addToCart, removeFromCart, cartLength }) {
+function SingleProductView({ product }) {
 
   return (
     <div className="productView">
@@ -445,7 +445,7 @@ function Popup({ message, color, key }) {
   );
 }
 
-function AboutPage({cart}) {
+function AboutPage({ }) {
 
   const navigate = useNavigate();
 
@@ -573,7 +573,7 @@ function Product({
 //CheckoutForm houses the cart and form to check out
 //Displays the items, quantites, and price of the products along with the total price
 //Maintians it's own error states to ensure the user inputs the correct information on the checkout form
-function CheckoutForm({ changeView, cart, updateFormData, clearCart }) {
+function CheckoutForm({ cart, updateFormData, clearCart }) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
@@ -858,7 +858,7 @@ function CheckoutForm({ changeView, cart, updateFormData, clearCart }) {
 
 //Displays the order summary 
 //including purchased products and the users information
-function ConfirmationView({ cart, orderData, changeView, clearCart }) {
+function ConfirmationView({ cart, orderData, clearCart }) {
   const navigate = useNavigate();
   const calculateQuantities = () => {
     const quantities = {};
