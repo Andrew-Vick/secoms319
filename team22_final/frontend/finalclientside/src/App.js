@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Toast } from 'bootstrap';
+import { debounce } from 'lodash';
 import "./style.css";
 
 
@@ -53,7 +54,7 @@ function App() {
         <Route path="/FinalData" element={<CategoryView addToCart={addToCart} removeFromCart={removeFromCart} cart={cart} cartLength={cart.length} />} />
         <Route path="/checkout" element={<CheckoutForm cart={cart} changeView={changeView} updateFormData={updateFormData} clearCart={clearCart} />} />
         <Route path="/confirmation" element={<ConfirmationView cart={cart} orderData={formData} changeView={changeView} clearCart={clearCart} />} />
-        <Route path="/aboutPage" element={<aboutPage/>}/>
+        <Route path="/AboutPage" element={<AboutPage cart={cart}/>}/>
 
       </Routes>
     </Router>
@@ -110,7 +111,7 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
                 <span className="badge bg-primary ml-2" id="CartNum">{cartLength} Items</span>
               )}
             </button>
-            <Link to={'/aboutPage'}>about</Link>
+            <button onClick={() => navigate('/AboutPage')} className="btn btn-primary">About</button>
           </div>
         </div>
       </header>
@@ -265,6 +266,15 @@ function BrowseView({ addToCart, changeView, cartLength, removeFromCart }) {
           </div>
         </div>
       </div>
+
+      <footer>
+        <div>
+          <div className="container-footer">
+            <p>&copy;TechTreasure Trove. All rights reserved.</p>
+            <p>All images were AI generated no copyrights were infringed</p>
+          </div>
+        </div>
+      </footer>
     </div>
 
   );
@@ -276,10 +286,12 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
   const { categoryName } = useParams();
   const { name } = useParams();
   const navigate = useNavigate();
-  const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const [popupColor, setPopupColor] = useState('');
   const [isSingleProductView, setIsSingleProductView] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
+  const [popupInfo, setPopupInfo] = useState({ message: '', color: '', key: Date.now() });
 
 
   useEffect(() => {
@@ -320,12 +332,45 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
   const handleAddToCart = (product) => {
     addToCart(product);
     setPopupMessage(`${product.title} added to cart!`);
+    setPopupColor('green');
     setShowPopup(true);
+
     // Set a timeout to hide the popup after 3 seconds
     setTimeout(() => {
       setShowPopup(false);
+      setPopupMessage(''); // Clear the message
+      setPopupColor(''); // Clear the color
     }, 3000);
+};
+
+const handleRemoveFromCart = (product) => {
+    removeFromCart(product);
+    setPopupMessage(`${product.title} removed from cart!`);
+    setPopupColor('red');
+    setShowPopup(true);
+
+    // Set a timeout to hide the popup after 3 seconds
+    setTimeout(() => {
+      setShowPopup(false);
+      setPopupMessage(''); // Clear the message
+      setPopupColor(''); // Clear the color
+    }, 3000);
+};
+useEffect(() => {
+  let timer;
+  if (showPopup) {
+    timer = setTimeout(() => {
+      setShowPopup(false);
+      setPopupMessage(''); // Clear the message
+      setPopupColor(''); // Clear the color
+    }, 3000);
+  }
+  return () => {
+    if (timer) {
+      clearTimeout(timer); // Clear the timeout if the component unmounts
+    }
   };
+}, [showPopup]);
 
 
   return (
@@ -357,7 +402,7 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
         </div>
       </header>
       <div>
-        {showPopup && <Popup message={popupMessage} />}
+      {showPopup && <Popup message={popupMessage} color={popupColor} />}
       </div>
       <div className="row">
         {isSingleProductView && products.length > 0 ? (
@@ -374,12 +419,20 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
               description={product.description}
               price={product.price}
               handleAddToCart={handleAddToCart}
-              removeFromCart={removeFromCart}
+              removeFromCart={handleRemoveFromCart}
               imagePath={product.image}
             />
           ))
         )}
       </div>
+      <footer>
+        <div>
+          <div className="container-footer">
+            <p>&copy;TechTreasure Trove. All rights reserved.</p>
+            <p>All images were AI generated no copyrights were infringed</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
@@ -405,15 +458,18 @@ function SingleProductView({ product, addToCart, removeFromCart, cartLength }) {
   );
 }
 
-function Popup({ message }) {
+function Popup({ message, color, key }) {
   useEffect(() => {
     let toastElement = document.querySelector('.toast');
-    let toast = new Toast(toastElement);
-    toast.show();
-  }, []);
+    if(toastElement){
+      toastElement.style.backgroundColor = color;
+      let toast = new Toast(toastElement);
+      toast.show();
+    }
+  }, [message, color]);
 
   return (
-    <div className="popup-notification">
+    <div key={key} className="popup-notification">
       <div className="toast show" role="alert" aria-live="assertive" aria-atomic="true">
         <div className="toast-body">
           {message}
@@ -423,9 +479,24 @@ function Popup({ message }) {
   );
 }
 
-function aboutPage() {
+function AboutPage({cart}) {
+
+  const navigate = useNavigate();
+
   return (
-    <div className="container">
+    <div>
+    <header>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h1>TechTreasure Trove</h1>
+          <div ClassName="Buttons">
+            <button onClick={() => navigate('/')} className="btn btn-primary">
+              Home
+            </button>
+          </div>
+        </div>
+    </header>
+
+    <div className="AboutContainer">
       <section className="py-5">
         <div className="container">
           <h1 className="fw-light">Authors</h1>
@@ -467,7 +538,7 @@ function aboutPage() {
         </div>
       </section>
 
-      <section>
+      <section id="class">
         <div className="container">
           <h1>ComS 319</h1>
           <h4>Construction of User Interfaces</h4>
@@ -480,12 +551,11 @@ function aboutPage() {
         <div>
           <div className="container-footer">
             <p>&copy;TechTreasure Trove. All rights reserved.</p>
-            <p>All images were AI generated no copyrights were infringed</p>d
-            <br />
-            <br />
+            <p>All images were AI generated no copyrights were infringed</p>
           </div>
         </div>
       </footer>
+    </div>
     </div>
 
 

@@ -196,3 +196,19 @@ img{
   padding-top: 20px;
 }
 
+
+/* About page */
+.AboutContainer{
+  color:lightgray;
+  font-family: 'Arial', sans-serif;
+}
+
+#Authors{
+  padding-bottom: 20px;
+  box-shadow: 0 4px 2px -2px black;
+}
+
+#class{
+  padding-bottom: 20px;
+  box-shadow: 0 4px 2px -2px black;
+}
