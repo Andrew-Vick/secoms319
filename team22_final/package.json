@@ -2,9 +2,15 @@
     "scripts": {
         "start": "node backend/server.js",
         "client": "cd frontend/finalclientside && npm start finalclientside",
-        "dev": "concurrently \"npm run start\" \"npm run client\""
+        "dev": "concurrently \"npm run start\" \"npm run client\"",
+        "predeploy": "npm run build",
+        "deploy": "main -d build"
     },
     "devDependencies": {
-        "concurrently": "^8.2.2"
+        "concurrently": "^8.2.2",
+        "main": "^1000.0.1"
+    },
+    "dependencies": {
+        "react-scripts": "^5.0.1"
     }
 }
