@@ -17,7 +17,7 @@ function App() {
   const [cart, setCart] = useState([]);
   const [formData, setFormData] = useState(null);
 
-  
+
 
   const clearCart = () => {
     setCart([]);
@@ -54,10 +54,13 @@ function App() {
 
       </Routes>
     </Router>
+
   );
 }
 
 export default App;
+
+
 
 //Allows users to view and search for different products
 //BrowseView also has it's own states for search terms and product info
@@ -307,9 +310,9 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
       setPopupMessage(''); // Clear the message
       setPopupColor(''); // Clear the color
     }, 3000);
-};
+  };
 
-const handleRemoveFromCart = (product) => {
+  const handleRemoveFromCart = (product) => {
     removeFromCart(product);
     setPopupMessage(`${product.title} removed from cart!`);
     setPopupColor('red');
@@ -321,22 +324,22 @@ const handleRemoveFromCart = (product) => {
       setPopupMessage(''); // Clear the message
       setPopupColor(''); // Clear the color
     }, 3000);
-};
-useEffect(() => {
-  let timer;
-  if (showPopup) {
-    timer = setTimeout(() => {
-      setShowPopup(false);
-      setPopupMessage(''); // Clear the message
-      setPopupColor(''); // Clear the color
-    }, 3000);
-  }
-  return () => {
-    if (timer) {
-      clearTimeout(timer); // Clear the timeout if the component unmounts
-    }
   };
-}, [showPopup]);
+  useEffect(() => {
+    let timer;
+    if (showPopup) {
+      timer = setTimeout(() => {
+        setShowPopup(false);
+        setPopupMessage(''); // Clear the message
+        setPopupColor(''); // Clear the color
+      }, 3000);
+    }
+    return () => {
+      if (timer) {
+        clearTimeout(timer); // Clear the timeout if the component unmounts
+      }
+    };
+  }, [showPopup]);
 
 
   return (
@@ -368,7 +371,7 @@ useEffect(() => {
         </div>
       </header>
       <div>
-      {showPopup && <Popup message={popupMessage} color={popupColor} />}
+        {showPopup && <Popup message={popupMessage} color={popupColor} />}
       </div>
       <div className="row">
         {isSingleProductView && products.length > 0 ? (
@@ -427,7 +430,7 @@ function SingleProductView({ product }) {
 function Popup({ message, color, key }) {
   useEffect(() => {
     let toastElement = document.querySelector('.toast');
-    if(toastElement){
+    if (toastElement) {
       toastElement.style.backgroundColor = color;
       let toast = new Toast(toastElement);
       toast.show();
@@ -451,7 +454,7 @@ function AboutPage({ }) {
 
   return (
     <div>
-    <header>
+      <header>
         <div className="d-flex justify-content-between align-items-center mb-3">
           <h1>TechTreasure Trove</h1>
           <div ClassName="Buttons">
@@ -460,68 +463,68 @@ function AboutPage({ }) {
             </button>
           </div>
         </div>
-    </header>
+      </header>
 
-    <div className="AboutContainer">
-      <section className="py-5">
-        <div className="container">
-          <h1 className="fw-light">Authors</h1>
-        </div>
-      </section>
-
-      <section id="Authors">
-        <div className="container">
-          <h1>Andrew Vick</h1>
-          <p id="Author-Info">
-            Hello, I am a third year software engineering student at Iowa State. I am currently learning
-            how to utilize
-            html, css, javascript and JSON to create and design dynamic websites. I hope you have enjoyed our tech related webstore. It was our first take
-            using JSON to dynamically load products based on the users inputs.
-          </p>
-          <p id="Email-Info">
-            <a href="mailto:avick@iastate.edu">avick@iastate.edu</a>
-          </p>
-        </div>
-
-        <div className="container">
-          <h1>Draven</h1>
-          <p id="Author-Info">
-            Hello, I am a senior at Iowa State University majoring in Aerospace Engineering and minoring
-            in Computer Science.
-            I am currently learning how to utilize HTML, CSS, and Javascript to create and design
-            websites.
-          </p>
-          <p id="Email-Info">
-            <a href="mailto:avick@iastate.edu">dravenr@iastate.edu</a>
-          </p>
-        </div>
-
-      </section>
-
-      <section id="Course" className="py-5">
-        <div className="container">
-          <h1 className="fw-light">Course</h1>
-        </div>
-      </section>
-
-      <section id="class">
-        <div className="container">
-          <h1>ComS 319</h1>
-          <h4>Construction of User Interfaces</h4>
-          <p>Instructor: Abraham Aldaco, Ph.D.</p>
-          <p>Date: October, 18th 2023</p>
-        </div>
-      </section>
-
-      <footer>
-        <div>
-          <div className="container-footer">
-            <p>&copy;TechTreasure Trove. All rights reserved.</p>
-            <p>All images were AI generated no copyrights were infringed</p>
+      <div className="AboutContainer">
+        <section className="py-5">
+          <div className="container">
+            <h1 className="fw-light">Authors</h1>
           </div>
-        </div>
-      </footer>
-    </div>
+        </section>
+
+        <section id="Authors">
+          <div className="container">
+            <h1>Andrew Vick</h1>
+            <p id="Author-Info">
+              Hello, I am a third year software engineering student at Iowa State. I am currently learning
+              how to utilize
+              html, css, javascript and JSON to create and design dynamic websites. I hope you have enjoyed our tech related webstore. It was our first take
+              using JSON to dynamically load products based on the users inputs.
+            </p>
+            <p id="Email-Info">
+              <a href="mailto:avick@iastate.edu">avick@iastate.edu</a>
+            </p>
+          </div>
+
+          <div className="container">
+            <h1>Draven</h1>
+            <p id="Author-Info">
+              Hello, I am a senior at Iowa State University majoring in Aerospace Engineering and minoring
+              in Computer Science.
+              I am currently learning how to utilize HTML, CSS, and Javascript to create and design
+              websites.
+            </p>
+            <p id="Email-Info">
+              <a href="mailto:avick@iastate.edu">dravenr@iastate.edu</a>
+            </p>
+          </div>
+
+        </section>
+
+        <section id="Course" className="py-5">
+          <div className="container">
+            <h1 className="fw-light">Course</h1>
+          </div>
+        </section>
+
+        <section id="class">
+          <div className="container">
+            <h1>ComS 319</h1>
+            <h4>Construction of User Interfaces</h4>
+            <p>Instructor: Abraham Aldaco, Ph.D.</p>
+            <p>Date: October, 18th 2023</p>
+          </div>
+        </section>
+
+        <footer>
+          <div>
+            <div className="container-footer">
+              <p>&copy;TechTreasure Trove. All rights reserved.</p>
+              <p>All images were AI generated no copyrights were infringed</p>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
 
 
@@ -887,7 +890,7 @@ function ConfirmationView({ cart, orderData, clearCart }) {
   const totalPrice = calculateTotalPrice();
 
   return (
-    <div className="container" style={{color: 'white'}}>
+    <div className="container" style={{ color: 'white' }}>
       <div className="row">
         <h1 className="text-success">You have made an order!</h1>
         <h2>Order summary</h2>

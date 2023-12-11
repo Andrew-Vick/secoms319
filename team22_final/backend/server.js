@@ -56,5 +56,3 @@ app.get("/FinalData", async (req, res) => {
 app.listen(port, host, () => {
     console.log(`Server is running at http://${host}:${port}`);
 });
-
-
