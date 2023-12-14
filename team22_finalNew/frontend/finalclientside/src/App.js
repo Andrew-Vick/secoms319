@@ -386,13 +386,9 @@ function CategoryView({ addToCart, removeFromCart, cartLength }) {
     setSearchTerm(event.target.value.toLowerCase());
   };
 
-  const filteredProducts = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchTerm) ||
-      (product.keywords &&
-        product.keywords.some((keyword) =>
-          keyword.toLowerCase().includes(searchTerm)
-        ))
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchTerm) ||
+    (product.keyword && product.keyword.some(keyword => keyword.toLowerCase().includes(searchTerm)))
   );
 
   const handleAddToCart = (product) => {
